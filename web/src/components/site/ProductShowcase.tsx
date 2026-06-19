@@ -28,8 +28,8 @@ import {
 /**
  * Custom mouse-responsive floating product showcase.
  * Two device mocks parallax-tilt toward the pointer (transform only) and
- * idle-float via CSS keyframes. Reduced motion freezes both. The mocks are
- * placeholder UI — [PLACEHOLDER: real client screenshots].
+ * idle-float via CSS keyframes. Reduced motion freezes both. The mocks are an
+ * illustrative, bespoke product preview (not real client screenshots).
  */
 export function ProductShowcase() {
   const ref = useRef<HTMLDivElement>(null);
@@ -71,9 +71,7 @@ export function ProductShowcase() {
       style={{ perspective: 1200 }}
       aria-hidden="true"
     >
-      <span className="ph absolute -bottom-7 left-1 z-[5]">
-        [PLACEHOLDER: real client screenshots]
-      </span>
+      {/* Illustrative product preview — bespoke, uncaptioned showcase. */}
 
       {/* Analytics dashboard mock */}
       <div className={`absolute left-[-10px] top-1 ${reduce ? "" : "floaty-a"}`}>

@@ -1,69 +1,99 @@
-import Image from "next/image";
-import logo from "../../../public/devaxl-logo.png";
+import Link from "next/link";
+import { CALENDLY_URL, CONTACT, SOCIALS } from "@/lib/site";
 
 const COLS = [
   {
     title: "Company",
     links: [
-      { label: "Work", href: "#work" },
-      { label: "Services", href: "#services" },
-      { label: "Process", href: "#process" },
-      { label: "About", href: "#about" },
+      { label: "Work", href: "/work" },
+      { label: "Services", href: "/services" },
+      { label: "Process", href: "/process" },
+      { label: "Insights", href: "/insights" },
+      { label: "About", href: "/about" },
     ],
   },
   {
     title: "Services",
     links: [
-      { label: "MVP Build", href: "#services" },
-      { label: "Dedicated Team", href: "#services" },
-      { label: "Modernization", href: "#services" },
-    ],
-  },
-  {
-    title: "Contact",
-    links: [
-      { label: "hello@devaxl.com", href: "mailto:hello@devaxl.com" },
-      { label: "Book a call", href: "#contact" },
-      { label: "Careers", href: "#" },
+      { label: "MVP Build", href: "/services" },
+      { label: "Dedicated Team", href: "/services" },
+      { label: "Modernization", href: "/services" },
     ],
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="pb-12 pt-[72px]">
+    <footer className="border-t border-faint pb-12 pt-[72px]">
       <div className="wrap">
-        <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-10 border-b border-faint pb-12 max-md:grid-cols-2 max-md:gap-x-5 max-md:gap-y-7">
+        <div className="grid grid-cols-[1.6fr_1fr_1fr_1.1fr] gap-10 border-b border-faint pb-12 max-md:grid-cols-2 max-md:gap-x-5 max-md:gap-y-7">
           <div className="max-md:col-span-2">
-            <Image src={logo} alt="DevAXL" className="mb-[18px] h-6 w-auto" style={{ height: 24, width: "auto" }} />
+            <Link href="/" className="inline-block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/devaxlWhiteLogo.svg" alt="DevAXL" className="mb-[18px] h-[22px] w-auto" />
+            </Link>
             <p className="max-w-[280px] text-[14px] leading-[1.65] text-secondary">
               A premium product engineering studio. We design, build, and scale
               SaaS products for founders and CTOs.
             </p>
           </div>
+
           {COLS.map((col) => (
             <div key={col.title}>
-              <h2 className="mb-4 font-semibold uppercase tracking-caps text-tertiary text-[11px]">
+              <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-caps text-tertiary">
                 {col.title}
               </h2>
               {col.links.map((l) => (
-                <a
+                <Link
                   key={l.label}
                   href={l.href}
                   className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
             </div>
           ))}
+
+          <div>
+            <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-caps text-tertiary">
+              Contact
+            </h2>
+            <a
+              href={CONTACT.emailHref}
+              className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
+            >
+              {CONTACT.email}
+            </a>
+            <a
+              href={CONTACT.phoneHref}
+              className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
+            >
+              {CONTACT.phone}
+            </a>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
+            >
+              Book a call
+            </a>
+          </div>
         </div>
+
         <div className="flex items-center justify-between pt-7 text-[13px] text-tertiary max-md:flex-col max-md:items-start max-md:gap-4">
           <span>© 2026 DevAXL. All rights reserved.</span>
           <div className="flex gap-5">
-            {["X", "LinkedIn", "GitHub", "Dribbble"].map((s) => (
-              <a key={s} href="#" className="transition-colors duration-[120ms] hover:text-accent">
-                {s}
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors duration-[120ms] hover:text-accent"
+              >
+                {s.label}
               </a>
             ))}
           </div>

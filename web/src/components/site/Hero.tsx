@@ -1,7 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { CALENDLY_URL } from "@/lib/site";
+import { HeroDotGrid } from "./HeroDotGrid";
 import { ProductShowcase } from "./ProductShowcase";
 
 export function Hero() {
@@ -12,6 +16,9 @@ export function Hero() {
       id="top"
       className="relative overflow-hidden border-b border-faint pb-24 pt-[92px] max-md:pb-14 max-md:pt-12"
     >
+      {/* Interactive dot-grid — bottom-most layer, behind all hero content */}
+      <HeroDotGrid />
+
       {/* Deep soft gold glow — low opacity, slow drift for atmosphere */}
       <div
         aria-hidden
@@ -63,12 +70,17 @@ export function Hero() {
             we embed a senior product team and ship.
           </p>
           <div className="mt-9 flex flex-wrap gap-3.5 max-md:flex-col max-md:items-stretch">
-            <Button size="lg" className="max-md:w-full">
+            <Link href="/work" className={cn(buttonVariants({ size: "lg" }), "max-md:w-full")}>
               See what we&rsquo;ve shipped
-            </Button>
-            <Button variant="ghost" size="lg" className="max-md:w-full">
+            </Link>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "max-md:w-full")}
+            >
               Book a scoping call
-            </Button>
+            </a>
           </div>
         </div>
 

@@ -1,5 +1,8 @@
 import { Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { CALENDLY_URL } from "@/lib/site";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { SectionHead } from "./SectionHead";
 
 const TIERS = [
@@ -48,9 +51,10 @@ export function Engagement() {
 
         <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1 max-md:gap-4">
           {TIERS.map((t) => (
-            <article
+            <SpotlightCard
               key={t.name}
               data-reveal
+              intensity={t.featured ? 0.18 : 0.13}
               className={
                 "flex flex-col rounded-lg bg-surface-1 p-[30px] " +
                 (t.featured
@@ -75,10 +79,18 @@ export function Engagement() {
                   </li>
                 ))}
               </ul>
-              <Button variant={t.featured ? "primary" : "ghost"} className="w-full">
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ variant: t.featured ? "primary" : "ghost" }),
+                  "w-full",
+                )}
+              >
                 {t.cta}
-              </Button>
-            </article>
+              </a>
+            </SpotlightCard>
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { ArrowRight, Gauge, Rocket, Users } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { SectionHead } from "./SectionHead";
 
 const CARDS = [
@@ -36,10 +37,10 @@ export function Capabilities() {
 
         <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1 max-md:gap-4">
           {CARDS.map(({ icon: Icon, ...c }) => (
-            <article
+            <SpotlightCard
               key={c.title}
               data-reveal
-              className="group flex cursor-pointer flex-col rounded-lg border border-subtle bg-surface-1 p-7 shadow-[var(--shadow-sm),var(--inner-top)] transition-[transform,border-color,box-shadow] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[var(--line)] hover:shadow-[var(--shadow-lg),var(--inner-top)]"
+              className="flex cursor-pointer flex-col rounded-lg border border-subtle bg-surface-1 p-7 shadow-[var(--shadow-sm),var(--inner-top)] transition-[transform,border-color,box-shadow] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[var(--line)] hover:shadow-[var(--shadow-lg),var(--inner-top)]"
             >
               <div className="mb-5 flex size-11 items-center justify-center rounded-md border border-[rgba(255,182,0,0.25)] bg-accent-quiet text-accent">
                 <Icon className="size-[21px]" strokeWidth={1.75} />
@@ -64,7 +65,7 @@ export function Capabilities() {
                   </span>
                 ))}
               </div>
-            </article>
+            </SpotlightCard>
           ))}
         </div>
       </div>

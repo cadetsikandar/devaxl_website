@@ -1,25 +1,65 @@
 import { SectionHead } from "./SectionHead";
 
+// Real client reviews from Upwork & Fiverr.
 const QUOTES = [
   {
     quote:
-      "The DevAXL team shipped our v1 faster than our last in-house attempt did a prototype — and it was production-grade.",
-    name: "Maya Renner",
-    role: "Founder & CEO, Loomly",
+      "DevAXL combine technical expertise with professionalism, communication, timeliness, and flexibility — for React, Strapi, and Node.js your search ends here.",
+    name: "Wecept",
     src: "Upwork",
   },
   {
     quote:
-      "They walked into a tangled five-year-old codebase and made it fast and predictable. The DevAXL team felt like our own.",
-    name: "Daniel Osei",
-    role: "CTO, Cadence",
+      "One of the most talented teams on Upwork. Top-notch communication, every deadline met, super fast. Highly recommended.",
+    name: "Cristiana",
+    src: "Upwork",
+  },
+  {
+    quote:
+      "Totally recommended. Clear communication and delivery exactly as requested — clean and thorough.",
+    name: "Takneo",
     src: "Fiverr",
   },
   {
     quote:
-      "An embedded squad that actually owned outcomes. The DevAXL team raised our delivery bar across the whole org.",
-    name: "Priya Shah",
-    role: "VP Product, Vantage",
+      "An amazing job; everything worked perfectly. Would definitely hire them again.",
+    name: "Mark",
+    src: "Fiverr",
+  },
+  {
+    quote:
+      "Needed html/css converted to Angular 8 — the team responded in minutes and finished in under a day.",
+    name: "Laura",
+    src: "Upwork",
+  },
+  {
+    quote:
+      "Finished exactly as I wanted and were very helpful setting up the demo site. Will keep working with them.",
+    name: "Gary",
+    src: "Upwork",
+  },
+  {
+    quote:
+      "Love the quality of service and attention to detail. Friendly and quick to respond.",
+    name: "Tom",
+    src: "Upwork",
+  },
+  {
+    quote:
+      "More than a five-star team — exceptional communication and understanding. They transformed our application.",
+    name: "Mateen",
+    src: "Upwork",
+  },
+  {
+    quote:
+      "Our app was full of bugs; they took ownership and resolved everything fast, with excellent communication.",
+    name: "John",
+    src: "Upwork",
+  },
+  {
+    quote:
+      "They moved our whole architecture to AWS and set up video hosting — our streaming is better than ever.",
+    name: "Anthony",
     src: "Upwork",
   },
 ];
@@ -28,29 +68,32 @@ export function Testimonials() {
   return (
     <section id="about" className="border-b border-faint py-24 max-md:py-16">
       <div className="wrap">
-        <SectionHead eyebrow="Clients" title="Trusted by founders and CTOs." />
+        <SectionHead eyebrow="Clients" title="Trusted by founders and teams.">
+          Ten five-star reviews from clients on Upwork and Fiverr.
+        </SectionHead>
 
-        {/* Desktop: 3-up grid. Mobile: swipeable scroll-snap carousel. */}
-        <div className="grid grid-cols-3 gap-5 max-md:-mx-5 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3.5 max-md:overflow-x-auto max-md:px-5 max-md:pb-2 max-md:[scrollbar-width:none]">
+        {/* Masonry wall — varying heights, balanced across columns */}
+        <div className="[column-gap:20px] md:columns-2 lg:columns-3">
           {QUOTES.map((q) => (
             <figure
-              key={q.name}
+              key={q.name + q.quote.slice(0, 12)}
               data-reveal
-              className="flex flex-col rounded-lg border border-subtle bg-surface-1 p-7 shadow-[var(--shadow-sm),var(--inner-top)] max-md:min-w-[84%] max-md:snap-center"
+              className="mb-5 break-inside-avoid rounded-lg border border-subtle bg-surface-1 p-6 shadow-[var(--shadow-sm),var(--inner-top)]"
             >
-              <span aria-hidden className="font-mono text-[34px] leading-none text-accent">
+              <span aria-hidden className="font-mono text-[30px] leading-none text-accent">
                 &ldquo;
               </span>
-              <blockquote className="mt-3.5 flex-1 text-[16px] leading-[1.65] text-primary">
-                {q.quote}{" "}
-                <span className="ph align-middle">[PLACEHOLDER quote]</span>
+              <blockquote className="mt-3 text-[15px] leading-relaxed text-primary">
+                {q.quote}
               </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-faint pt-5">
-                <span aria-hidden className="size-[38px] shrink-0 rounded-full bg-surface-4" />
-                <span>
-                  <span className="block text-[14px] font-semibold">{q.name}</span>
-                  <span className="mt-0.5 block text-[13px] text-tertiary">{q.role}</span>
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-faint pt-4">
+                <span
+                  aria-hidden
+                  className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-3 text-[13px] font-semibold text-secondary"
+                >
+                  {q.name.charAt(0)}
                 </span>
+                <span className="text-[14px] font-semibold text-primary">{q.name}</span>
                 <span className="ml-auto rounded-pill border border-faint px-[9px] py-1 font-mono text-[11px] text-tertiary">
                   {q.src}
                 </span>

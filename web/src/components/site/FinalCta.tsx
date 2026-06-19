@@ -1,4 +1,7 @@
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { CALENDLY_URL } from "@/lib/site";
 
 export function FinalCta() {
   return (
@@ -30,12 +33,17 @@ export function FinalCta() {
           we&rsquo;d help.
         </p>
         <div className="mt-9 flex justify-center gap-3.5 max-md:flex-col max-md:items-stretch">
-          <Button size="lg" className="max-md:w-full">
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ size: "lg" }), "max-md:w-full")}
+          >
             Book a scoping call
-          </Button>
-          <Button variant="ghost" size="lg" className="max-md:w-full">
+          </a>
+          <Link href="/work" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "max-md:w-full")}>
             See our work
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

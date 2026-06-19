@@ -1,37 +1,44 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
- * Global motion controller.
- *  - Lenis      -> smooth scroll
+ * Global motion controller, shared across all routes via the root layout.
+ *  - Lenis      -> smooth scroll (created once, persists across navigation)
  *  - GSAP/ScrollTrigger -> scroll-driven reveals (transform + opacity only)
  *
- * Everything is wrapped in gsap.matchMedia("(prefers-reduced-motion:
- * no-preference)"), so users who ask for reduced motion get native scroll
- * and fully-visible content (the CSS media query also hard-guarantees this).
- * Reveals are lazy by nature: ScrollTrigger only animates each element as it
- * enters the viewport, so below-the-fold work never runs up front.
+ * Reveals are rebuilt on every route change: App Router swaps the page
+ * children under a persistent layout, so a one-time setup would leave new
+ * pages' [data-reveal] elements stuck hidden. The per-route effect re-scans,
+ * resets scroll to top, and refreshes ScrollTrigger.
+ *
+ * Everything sits behind "(prefers-reduced-motion: no-preference)"; reduced
+ * motion users get native scroll and fully-visible content (the CSS media
+ * query hard-guarantees visibility regardless).
  */
 export default function SmoothScroll() {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // Lenis + global wiring — once.
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
     const mm = gsap.matchMedia();
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const root = document.documentElement;
       root.classList.add("reveal-ready");
 
-      // --- Lenis smooth scroll, driven by the GSAP ticker for one rAF loop ---
       const lenis = new Lenis({
         duration: 1.05,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
+      lenisRef.current = lenis;
       lenis.on("scroll", ScrollTrigger.update);
       const raf = (time: number) => lenis.raf(time * 1000);
       gsap.ticker.add(raf);
@@ -52,41 +59,71 @@ export default function SmoothScroll() {
       };
       document.addEventListener("click", onAnchorClick);
 
-      // --- Scroll reveals (fade + slight rise, staggered across siblings) ---
-      const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-      gsap.set(reveals, { opacity: 0, y: 22 });
-      const batch = ScrollTrigger.batch(reveals, {
-        start: "top 88%",
-        once: true,
-        onEnter: (els) =>
-          gsap.to(els, {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            stagger: 0.08,
-            overwrite: true,
-          }),
-      });
-
-      // Recompute positions once fonts/layout settle.
-      const refresh = () => ScrollTrigger.refresh();
-      window.addEventListener("load", refresh);
-      const refreshTimer = window.setTimeout(refresh, 350);
-
       return () => {
         document.removeEventListener("click", onAnchorClick);
-        window.removeEventListener("load", refresh);
-        window.clearTimeout(refreshTimer);
-        batch.forEach((st) => st.kill());
         gsap.ticker.remove(raf);
         lenis.destroy();
+        lenisRef.current = null;
         root.classList.remove("reveal-ready");
       };
     });
 
     return () => mm.revert();
   }, []);
+
+  // Per-route: reset scroll + (re)build reveals for the new page.
+  //
+  // Reveals are driven by IntersectionObserver, NOT ScrollTrigger.batch: IO
+  // reads real layout/scroll position, so it can't "miss" an element on a fast
+  // or Lenis-driven scroll (the bug that left sections stuck at opacity:0). GSAP
+  // still does the actual fade/rise tween. A timed safety net force-reveals any
+  // element that somehow stays hidden, so content is never invisible.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    if (!window.location.hash) {
+      lenisRef.current?.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
+    }
+
+    const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+    gsap.set(reveals, { opacity: 0, y: 22 });
+
+    const show = (el: HTMLElement) =>
+      gsap.to(el, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", overwrite: true });
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            show(entry.target as HTMLElement);
+            obs.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 },
+    );
+    reveals.forEach((el) => io.observe(el));
+
+    // Safety net: rescue any element that is already in/above the viewport but
+    // somehow still hidden. Below-fold elements stay observed (reveal on scroll).
+    const safety = window.setTimeout(() => {
+      reveals.forEach((el) => {
+        if (
+          parseFloat(getComputedStyle(el).opacity) < 0.05 &&
+          el.getBoundingClientRect().top < window.innerHeight
+        ) {
+          io.unobserve(el);
+          show(el);
+        }
+      });
+    }, 2000);
+
+    return () => {
+      window.clearTimeout(safety);
+      io.disconnect();
+    };
+  }, [pathname]);
 
   return null;
 }
