@@ -1,0 +1,616 @@
+<!-- @dsCard group="Website" viewport="430x900" name="Homepage — Mobile" subtitle="DevAXL homepage adapted for a ~390px phone — full scroll" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevAXL — We design, build, and scale SaaS products</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--canvas);color:var(--text-primary);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;line-height:var(--lh-normal);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:var(--fs-caption);text-transform:uppercase;letter-spacing:var(--ls-caps);color:var(--accent);font-weight:var(--fw-semibold);}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--accent);}
+  .ph{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--text-tertiary);border:1px dashed var(--line);border-radius:var(--radius-xs);padding:2px 6px;display:inline-block;}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:46px;padding:0 22px;font-family:var(--font-sans);font-size:var(--fs-body-sm);font-weight:var(--fw-semibold);letter-spacing:-0.01em;border-radius:var(--radius-md);border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background var(--dur-fast) var(--ease-standard),border-color var(--dur-fast) var(--ease-standard),box-shadow var(--dur-fast) var(--ease-standard),transform var(--dur-fast) var(--ease-standard);}
+  .btn:active{transform:scale(.98);}
+  .btn svg{width:17px;height:17px;}
+  .btn-primary{background:var(--accent);color:var(--text-on-accent);box-shadow:var(--shadow-xs);}
+  .btn-primary:hover{background:var(--accent-hover);box-shadow:var(--glow-accent);}
+  .btn-ghost{background:transparent;color:var(--text-primary);border-color:var(--border-default);}
+  .btn-ghost:hover{background:var(--surface-2);border-color:var(--border-strong);}
+  .btn-sm{height:38px;padding:0 16px;}
+  .btn-lg{height:52px;padding:0 28px;font-size:var(--fs-body);}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,10,12,0.72);backdrop-filter:var(--blur-glass);-webkit-backdrop-filter:var(--blur-glass);border-bottom:1px solid var(--line-faint);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .nav-logo{height:24px;width:auto;display:block;}
+  .nav-links{display:flex;gap:32px;align-items:center;}
+  .nav-links a{font-size:var(--fs-body-sm);color:var(--text-secondary);font-weight:var(--fw-medium);transition:color var(--dur-fast);}
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .hamburger{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border-default);border-radius:var(--radius-md);background:transparent;color:var(--text-primary);cursor:pointer;}
+  .hamburger i{width:20px;height:20px;}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;padding:92px 0 96px;border-bottom:1px solid var(--line-faint);}
+  .hero .mesh{position:absolute;inset:0;background:radial-gradient(48% 46% at 72% 18%,rgba(255,182,0,0.13) 0%,transparent 64%),radial-gradient(36% 40% at 90% 4%,rgba(255,182,0,0.07) 0%,transparent 60%);pointer-events:none;}
+  .hero .grid-lines{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(var(--line-faint) 1px,transparent 1px),linear-gradient(90deg,var(--line-faint) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(70% 60% at 60% 10%,#000,transparent 78%);}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.02fr 0.98fr;gap:48px;align-items:center;}
+  .hero h1{margin:22px 0 0;font-size:var(--fs-display);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tighter);line-height:var(--lh-tight);text-wrap:balance;}
+  .hero h1 .amber{color:var(--accent);}
+  .hero .sub{margin:24px 0 0;max-width:520px;font-size:var(--fs-body-lg);color:var(--text-secondary);line-height:var(--lh-relaxed);}
+  .hero .cta-row{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;}
+
+  /* floating product showcase */
+  .showcase{position:relative;height:476px;}
+  .mock{position:absolute;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl),var(--inner-top);overflow:hidden;}
+  .mock-dash{width:500px;left:-10px;top:4px;transform:rotate(-3deg);}
+  .mock-mobile{width:186px;right:-12px;bottom:-2px;transform:rotate(4deg);z-index:2;border-radius:22px;}
+  .showcase .ph{position:absolute;left:4px;bottom:-26px;z-index:5;}
+
+  /* window chrome */
+  .winbar{display:flex;align-items:center;gap:6px;padding:10px 13px;border-bottom:1px solid var(--line-faint);background:var(--surface-2);}
+  .winbar .dot{width:8px;height:8px;border-radius:50%;background:var(--surface-4);}
+  .winbar .addr{margin-left:10px;height:18px;flex:1;border-radius:var(--radius-pill);background:var(--surface-3);display:flex;align-items:center;padding:0 9px;font-family:var(--font-mono);font-size:8px;color:var(--text-tertiary);}
+
+  /* dashboard */
+  .dash-body{display:grid;grid-template-columns:134px 1fr;}
+  .dash-side{border-right:1px solid var(--line-faint);padding:12px 10px;display:flex;flex-direction:column;gap:2px;background:var(--surface-1);}
+  .dash-brand{display:flex;align-items:center;gap:7px;padding:2px 6px 12px;}
+  .dash-brand .mk{width:17px;height:17px;border-radius:5px;background:var(--accent);display:flex;align-items:center;justify-content:center;}
+  .dash-brand .mk b{width:7px;height:7px;border-radius:2px;background:var(--text-on-accent);}
+  .dash-brand .nm{font-size:11px;font-weight:700;letter-spacing:-0.02em;}
+  .nav-it{display:flex;align-items:center;gap:8px;padding:6px 7px;border-radius:6px;font-size:9.5px;color:var(--text-tertiary);}
+  .nav-it i{width:12px;height:12px;flex:none;}
+  .nav-it.on{background:var(--accent-quiet);color:var(--accent);}
+  .dash-side .sep{flex:1;}
+  .dash-main{padding:13px 14px;display:flex;flex-direction:column;gap:11px;}
+  .dm-head{display:flex;align-items:center;justify-content:space-between;}
+  .dm-head .ti{font-size:12.5px;font-weight:600;letter-spacing:-0.02em;}
+  .dm-head .pill{font-family:var(--font-mono);font-size:8px;color:var(--text-secondary);border:1px solid var(--line);border-radius:var(--radius-pill);padding:3px 9px;}
+  .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .kpi{background:var(--surface-2);border:1px solid var(--line-faint);border-radius:7px;padding:9px 10px;}
+  .kpi .k{font-size:8px;color:var(--text-tertiary);letter-spacing:.02em;}
+  .kpi .v{font-size:15px;font-weight:600;letter-spacing:-0.02em;margin-top:3px;}
+  .kpi .dl{font-size:8px;font-weight:600;margin-top:2px;}
+  .kpi .dl.up{color:var(--status-success);}
+  .kpi .dl.am{color:var(--accent);}
+  .chart{background:var(--surface-2);border:1px solid var(--line-faint);border-radius:7px;padding:10px 11px 8px;}
+  .chart .ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+  .chart .ch-top .lb{font-size:8px;color:var(--text-tertiary);}
+  .chart .ch-top .lg{display:flex;gap:10px;font-size:8px;color:var(--text-secondary);align-items:center;}
+  .chart .ch-top .lg span{display:inline-flex;align-items:center;gap:4px;}
+  .chart .ch-top .lg b{width:7px;height:7px;border-radius:2px;display:inline-block;}
+  .chart svg{display:block;width:100%;height:60px;}
+  .table{display:flex;flex-direction:column;}
+  .tr{display:grid;grid-template-columns:1.5fr 1fr 0.8fr;gap:8px;align-items:center;padding:6px 2px;border-top:1px solid var(--line-faint);font-size:9.5px;}
+  .tr.hd{color:var(--text-tertiary);font-size:8px;border-top:none;letter-spacing:.04em;text-transform:uppercase;}
+  .tr .nmcell{display:flex;align-items:center;gap:7px;color:var(--text-primary);}
+  .tr .av2{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--surface-4),var(--surface-3));flex:none;}
+  .tr .st{display:inline-flex;align-items:center;gap:5px;font-size:8.5px;color:var(--text-secondary);}
+  .tr .st .dot{width:5px;height:5px;border-radius:50%;background:var(--status-success);}
+  .tr .st .dot.am{background:var(--accent);}
+  .tr .amt{text-align:right;color:var(--text-primary);font-family:var(--font-mono);font-size:9px;}
+
+  /* mobile app screen */
+  .mob-body{display:flex;flex-direction:column;height:380px;background:var(--surface-1);}
+  .mob-status{display:flex;justify-content:space-between;align-items:center;padding:9px 14px 3px;font-family:var(--font-mono);font-size:8px;color:var(--text-secondary);}
+  .mob-hd{display:flex;justify-content:space-between;align-items:center;padding:7px 14px 11px;}
+  .mob-hd .h{font-size:14px;font-weight:600;letter-spacing:-0.02em;}
+  .mob-hd .h small{display:block;font-size:8px;font-weight:400;color:var(--text-tertiary);letter-spacing:0;margin-top:1px;}
+  .mob-hd .av{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--surface-4),var(--surface-3));flex:none;}
+  .mob-card{margin:0 14px;background:linear-gradient(135deg,var(--amber-500),var(--amber-300));border-radius:13px;padding:13px;color:var(--text-on-accent);box-shadow:var(--glow-accent);}
+  .mob-card .lab{font-size:8.5px;opacity:.8;}
+  .mob-card .bal{font-size:22px;font-weight:700;letter-spacing:-0.03em;margin-top:3px;}
+  .mob-card .sub{display:flex;justify-content:space-between;margin-top:11px;font-size:8.5px;opacity:.9;}
+  .mob-seg{display:flex;gap:6px;padding:13px 14px 5px;}
+  .mob-seg span{font-size:8.5px;color:var(--text-tertiary);padding:4px 10px;border-radius:var(--radius-pill);}
+  .mob-seg span.on{background:var(--surface-3);color:var(--text-primary);}
+  .mob-list{padding:2px 14px;display:flex;flex-direction:column;flex:1;}
+  .mob-tx{display:flex;align-items:center;gap:10px;padding:7px 0;}
+  .mob-tx .ic{width:29px;height:29px;border-radius:9px;background:var(--surface-3);flex:none;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);}
+  .mob-tx .ic i{width:14px;height:14px;}
+  .mob-tx .mid{flex:1;}
+  .mob-tx .mid .t{font-size:9.5px;font-weight:500;color:var(--text-primary);}
+  .mob-tx .mid .s{font-size:8px;color:var(--text-tertiary);margin-top:1px;}
+  .mob-tx .amt{font-family:var(--font-mono);font-size:9.5px;color:var(--text-primary);}
+  .mob-tx .amt.in{color:var(--status-success);}
+  .mob-tab{display:flex;justify-content:space-around;align-items:center;padding:10px 0 12px;border-top:1px solid var(--line-faint);background:var(--surface-2);color:var(--text-tertiary);}
+  .mob-tab i{width:17px;height:17px;}
+  .mob-tab .on{color:var(--accent);}
+
+  /* section scaffold */
+  section.band{padding:96px 0;border-bottom:1px solid var(--line-faint);}
+  .sec-head{max-width:680px;margin-bottom:52px;}
+  .sec-head h2{margin:16px 0 0;font-size:var(--fs-h2);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tight);line-height:var(--lh-snug);}
+  .sec-head p{margin:16px 0 0;font-size:var(--fs-body-lg);color:var(--text-secondary);line-height:var(--lh-relaxed);}
+
+  /* PROOF */
+  .proof{padding:44px 0;border-bottom:1px solid var(--line-faint);}
+  .logos{display:flex;align-items:center;gap:40px;flex-wrap:wrap;opacity:.55;margin-bottom:40px;}
+  .logos .lg{font-weight:var(--fw-bold);font-size:18px;letter-spacing:-0.02em;color:var(--text-secondary);}
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .metric{border-left:1px solid var(--line);padding-left:20px;}
+  .metric .n{font-size:var(--fs-h1);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tight);}
+  .metric .n .amber{color:var(--accent);}
+  .metric .d{margin-top:6px;color:var(--text-secondary);font-size:var(--fs-body-sm);}
+  .metric .ph{margin-top:10px;}
+
+  /* CAPABILITY */
+  .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .cap-card{background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm),var(--inner-top);transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out);cursor:pointer;display:flex;flex-direction:column;}
+  .cap-card:hover{transform:translateY(-3px);border-color:var(--border-hover);box-shadow:var(--shadow-lg),var(--inner-top);}
+  .cap-ic{width:44px;height:44px;border-radius:var(--radius-md);background:var(--accent-quiet);border:1px solid rgba(255,182,0,.25);display:flex;align-items:center;justify-content:center;color:var(--accent);margin-bottom:20px;}
+  .cap-ic svg{width:21px;height:21px;}
+  .cap-card h3{margin:0;font-size:var(--fs-h4);font-weight:var(--fw-semibold);letter-spacing:-0.01em;}
+  .cap-card .out{margin:14px 0 0;color:var(--text-secondary);font-size:var(--fs-body-sm);line-height:var(--lh-normal);flex:1;}
+  .cap-card .arrow{display:inline-flex;align-items:center;gap:7px;color:var(--accent);font-size:var(--fs-caption);font-weight:var(--fw-semibold);margin:18px 0 0;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line-faint);}
+  .chip{font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--text-secondary);background:var(--surface-3);border:1px solid var(--line-faint);border-radius:var(--radius-sm);padding:4px 9px;}
+
+  /* OUTCOME / WORK — metric-led, screenshot demoted to a strip */
+  .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .work-card{display:flex;flex-direction:column;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:28px 28px 0;overflow:hidden;box-shadow:var(--shadow-sm),var(--inner-top);transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out);cursor:pointer;}
+  .work-card:hover{transform:translateY(-3px);border-color:var(--border-hover);box-shadow:var(--shadow-lg),var(--inner-top);}
+  .work-card .tag{font-family:var(--font-mono);font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:0.08em;color:var(--text-tertiary);}
+  .work-card .res{margin:16px 0 0;font-size:50px;font-weight:var(--fw-semibold);letter-spacing:var(--ls-tighter);line-height:1.02;color:var(--text-primary);}
+  .work-card .res .amber{color:var(--accent);}
+  .work-card .ctx{margin:14px 0 18px;color:var(--text-secondary);font-size:var(--fs-body-sm);line-height:var(--lh-normal);max-width:90%;}
+  .work-strip{margin:auto -28px 0;height:60px;position:relative;border-top:1px solid var(--line-faint);background:linear-gradient(180deg,var(--surface-2),var(--surface-1));overflow:hidden;}
+  .work-strip .ph{position:absolute;top:50%;left:16px;transform:translateY(-50%);z-index:2;}
+  .work-strip .strip-ui{position:absolute;right:16px;top:0;bottom:0;display:flex;align-items:flex-end;gap:5px;padding:12px 0;opacity:.5;}
+  .work-strip .strip-ui span{width:9px;border-radius:2px 2px 0 0;background:var(--surface-4);}
+  .work-strip .strip-ui span.am{background:var(--accent);}
+
+  /* PROCESS RAIL */
+  .rail{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;}
+  .rail::before{content:"";position:absolute;top:13px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,var(--line),var(--accent),var(--line));}
+  .step{padding:0 16px;position:relative;}
+  .step .node{width:26px;height:26px;border-radius:50%;background:var(--surface-2);border:1px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:600;position:relative;z-index:2;}
+  .step h4{margin:20px 0 0;font-size:var(--fs-h4);font-weight:var(--fw-semibold);letter-spacing:-0.01em;}
+  .step p{margin:9px 0 0;color:var(--text-secondary);font-size:var(--fs-body-sm);line-height:var(--lh-normal);}
+
+  /* ENGAGEMENT MODELS */
+  .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tier{background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:30px;box-shadow:var(--shadow-sm),var(--inner-top);display:flex;flex-direction:column;}
+  .tier.featured{border-color:rgba(255,182,0,.3);box-shadow:var(--glow-accent);}
+  .tier .badge{align-self:flex-start;display:inline-flex;align-items:center;height:23px;padding:0 10px;border-radius:var(--radius-pill);background:var(--accent-quiet);color:var(--accent);border:1px solid rgba(255,182,0,.3);font-size:var(--fs-micro);font-weight:var(--fw-semibold);letter-spacing:.02em;margin-bottom:18px;}
+  .tier h3{margin:0;font-size:var(--fs-h3);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tight);}
+  .tier .who{margin:10px 0 20px;color:var(--text-secondary);font-size:var(--fs-body-sm);line-height:var(--lh-normal);}
+  .tier ul{list-style:none;margin:0 0 26px;padding:0;display:flex;flex-direction:column;gap:12px;flex:1;}
+  .tier li{display:flex;gap:10px;align-items:flex-start;font-size:var(--fs-body-sm);color:var(--text-primary);line-height:var(--lh-normal);}
+  .tier li svg{width:16px;height:16px;color:var(--accent);flex:none;margin-top:2px;}
+
+  /* TESTIMONIALS */
+  .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .quote{background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm),var(--inner-top);display:flex;flex-direction:column;}
+  .quote .mark{font-family:var(--font-mono);font-size:34px;line-height:1;color:var(--accent);}
+  .quote p{margin:14px 0 0;font-size:var(--fs-body);color:var(--text-primary);line-height:var(--lh-relaxed);flex:1;}
+  .quote .by{display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line-faint);}
+  .quote .av{width:38px;height:38px;border-radius:50%;background:var(--surface-4);flex:none;}
+  .quote .nm{font-size:var(--fs-body-sm);font-weight:var(--fw-semibold);}
+  .quote .rl{font-size:var(--fs-caption);color:var(--text-tertiary);margin-top:2px;}
+  .quote .src{margin-left:auto;font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--text-tertiary);border:1px solid var(--line-faint);border-radius:var(--radius-pill);padding:4px 9px;}
+
+  /* FINAL CTA */
+  .final{position:relative;overflow:hidden;padding:120px 0;text-align:center;border-bottom:1px solid var(--line-faint);}
+  .final .mesh{position:absolute;inset:0;background:radial-gradient(50% 120% at 50% 100%,rgba(255,182,0,0.15) 0%,transparent 64%);pointer-events:none;}
+  .final h2{position:relative;margin:0 auto;font-size:var(--fs-display);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tighter);line-height:var(--lh-tight);max-width:760px;text-wrap:balance;}
+  .final p{position:relative;margin:20px auto 0;max-width:520px;color:var(--text-secondary);font-size:var(--fs-body-lg);}
+  .final .cta-row{position:relative;display:flex;gap:14px;justify-content:center;margin-top:38px;}
+
+  /* FOOTER */
+  footer{padding:72px 0 48px;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid var(--line-faint);}
+  .foot-brand img{height:24px;margin-bottom:18px;}
+  .foot-brand p{color:var(--text-secondary);font-size:var(--fs-body-sm);max-width:280px;line-height:var(--lh-relaxed);}
+  .foot-col h5{margin:0 0 16px;font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:var(--ls-caps);color:var(--text-tertiary);font-weight:var(--fw-semibold);}
+  .foot-col a{display:block;color:var(--text-secondary);font-size:var(--fs-body-sm);margin-bottom:11px;transition:color var(--dur-fast);}
+  .foot-col a:hover{color:var(--text-primary);}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:28px;color:var(--text-tertiary);font-size:var(--fs-caption);}
+  .foot-bot .socials{display:flex;gap:20px;}
+  .foot-bot .socials a{font-size:var(--fs-caption);color:var(--text-tertiary);transition:color var(--dur-fast);}
+  .foot-bot .socials a:hover{color:var(--accent);}
+
+  /* MOBILE deliverable: lock to a centered phone-width column on any screen */
+  html{background:#070708;}
+  body{max-width:390px;margin-left:auto;margin-right:auto;}
+    .wrap{padding:0 20px;}
+
+    /* NAV: logo + compact CTA + hamburger */
+    .nav-in{height:60px;}
+    .nav-links{display:none;}
+    .hamburger{display:inline-flex;}
+    .nav-right{gap:10px;}
+    .nav-right .btn-sm{height:40px;padding:0 14px;}
+
+    /* HERO: single column, copy then mockup */
+    .hero{padding:48px 0 56px;}
+    .hero-grid{grid-template-columns:1fr;gap:36px;}
+    .hero h1{font-size:38px;}
+    .hero .sub{font-size:var(--fs-body);margin-top:18px;max-width:none;}
+    .hero .cta-row{flex-direction:column;align-items:stretch;gap:12px;margin-top:28px;}
+    .hero .cta-row .btn{width:100%;height:50px;}
+    .showcase{transform:scale(0.70);transform-origin:top left;height:336px;margin-top:4px;}
+
+    /* PROOF: metrics one per row */
+    .proof{padding:36px 0;}
+    .logos{gap:22px;margin-bottom:32px;}
+    .metrics{grid-template-columns:1fr;gap:22px;}
+    .metric .n{font-size:var(--fs-h2);}
+
+    /* SECTION rhythm */
+    section.band{padding:60px 0;}
+    .sec-head{margin-bottom:36px;}
+    .sec-head h2{font-size:28px;}
+    .sec-head p{font-size:var(--fs-body);}
+
+    /* CARDS: single column */
+    .cap-grid{grid-template-columns:1fr;gap:16px;}
+    .work-grid{grid-template-columns:1fr;gap:18px;}
+    .work-card .res{font-size:44px;}
+    .tier-grid{grid-template-columns:1fr;gap:16px;}
+
+    /* PROCESS: vertical timeline */
+    .rail{display:flex;flex-direction:column;gap:30px;}
+    .rail::before{top:6px;bottom:6px;left:13px;right:auto;width:1px;height:auto;background:linear-gradient(180deg,var(--line),var(--accent),var(--line));}
+    .step{display:grid;grid-template-columns:26px 1fr;column-gap:18px;align-items:start;padding:0;}
+    .step .node{grid-row:1 / span 2;}
+    .step h4{margin-top:0;}
+    .step p{margin-top:6px;}
+
+    /* TESTIMONIALS: single-column swipeable */
+    .quote-grid{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:0 20px 8px;-webkit-overflow-scrolling:touch;}
+    .quote-grid::-webkit-scrollbar{display:none;}
+    .quote{min-width:84%;scroll-snap-align:center;}
+
+    /* FINAL CTA + FOOTER */
+    .final{padding:84px 0;}
+    .final h2{font-size:36px;}
+    .final p{font-size:var(--fs-body);}
+    .final .cta-row{flex-direction:column;align-items:stretch;gap:12px;}
+    .final .cta-row .btn{width:100%;height:50px;}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:28px 20px;}
+    .foot-brand{grid-column:1 / -1;}
+    .foot-bot{flex-direction:column;gap:16px;align-items:flex-start;}
+</style>
+</head>
+<body>
+
+  <!-- 1. NAV -->
+  <nav>
+    <div class="wrap nav-in">
+      <a href="#"><img class="nav-logo" src="../../assets/devaxl-logo.png" alt="DevAXL"></a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <button class="btn btn-primary btn-sm">Book a call</button>
+        <button class="hamburger" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. HERO -->
+  <header class="hero">
+    <div class="mesh"></div>
+    <div class="grid-lines"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Product engineering studio</span>
+        <h1>We design, build, and scale <span class="amber">SaaS products.</span></h1>
+        <p class="sub">Launching a v1 or modernizing a platform serving thousands of users — we embed a senior product team and ship.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary btn-lg">See what we've shipped</button>
+          <button class="btn btn-ghost btn-lg">Book a scoping call</button>
+        </div>
+      </div>
+
+      <!-- FLOATING PRODUCT SHOWCASE -->
+      <div class="showcase">
+        <span class="ph">[PLACEHOLDER: real client screenshots]</span>
+        <!-- analytics dashboard mock -->
+        <div class="mock mock-dash">
+          <div class="winbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="addr">app.northwind.io/analytics</span></div>
+          <div class="dash-body">
+            <div class="dash-side">
+              <div class="dash-brand"><span class="mk"><b></b></span><span class="nm">Northwind</span></div>
+              <div class="nav-it on"><i data-lucide="layout-dashboard"></i>Overview</div>
+              <div class="nav-it"><i data-lucide="bar-chart-3"></i>Analytics</div>
+              <div class="nav-it"><i data-lucide="users"></i>Customers</div>
+              <div class="nav-it"><i data-lucide="credit-card"></i>Revenue</div>
+              <div class="nav-it"><i data-lucide="bell"></i>Activity</div>
+              <div class="sep"></div>
+              <div class="nav-it"><i data-lucide="settings"></i>Settings</div>
+            </div>
+            <div class="dash-main">
+              <div class="dm-head"><span class="ti">Overview</span><span class="pill">Last 30 days</span></div>
+              <div class="kpi-row">
+                <div class="kpi"><div class="k">MRR</div><div class="v">$48.2k</div><div class="dl up">&uarr; 12.4%</div></div>
+                <div class="kpi"><div class="k">Active users</div><div class="v">9,341</div><div class="dl up">&uarr; 8.1%</div></div>
+                <div class="kpi"><div class="k">Churn</div><div class="v">1.8%</div><div class="dl am">&darr; 0.3%</div></div>
+              </div>
+              <div class="chart">
+                <div class="ch-top"><span class="lb">Revenue</span><span class="lg"><span><b style="background:var(--accent)"></b>2026</span><span><b style="background:var(--surface-4)"></b>2025</span></span></div>
+                <svg viewBox="0 0 340 60" xmlns="http://www.w3.org/2000/svg">
+                  <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity="0.32"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+                  <line x1="0" y1="15" x2="340" y2="15" stroke="var(--line-faint)" stroke-width="1"/>
+                  <line x1="0" y1="32" x2="340" y2="32" stroke="var(--line-faint)" stroke-width="1"/>
+                  <line x1="0" y1="49" x2="340" y2="49" stroke="var(--line-faint)" stroke-width="1"/>
+                  <polyline fill="none" stroke="var(--surface-4)" stroke-width="1.5" points="0,50 34,48 68,52 102,44 136,46 170,40 204,42 238,36 272,38 306,32 340,34"/>
+                  <path d="M0,44 34,40 68,46 102,30 136,34 170,22 204,26 238,14 272,18 306,8 340,12 L340,60 L0,60 Z" fill="url(#ag)"/>
+                  <polyline fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,44 34,40 68,46 102,30 136,34 170,22 204,26 238,14 272,18 306,8 340,12"/>
+                </svg>
+              </div>
+              <div class="table">
+                <div class="tr hd"><span>Customer</span><span>Status</span><span class="amt">MRR</span></div>
+                <div class="tr"><span class="nmcell"><span class="av2"></span>Loomly Inc.</span><span class="st"><span class="dot"></span>Active</span><span class="amt">$4,820</span></div>
+                <div class="tr"><span class="nmcell"><span class="av2"></span>Cadence</span><span class="st"><span class="dot"></span>Active</span><span class="amt">$2,140</span></div>
+                <div class="tr"><span class="nmcell"><span class="av2"></span>Vantage</span><span class="st"><span class="dot am"></span>Trial</span><span class="amt">$980</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- mobile app mock -->
+        <div class="mock mock-mobile">
+          <div class="mob-body">
+            <div class="mob-status"><span>9:41</span><span>5G &nbsp; 100%</span></div>
+            <div class="mob-hd"><div class="h">Wallet<small>Good morning, Maya</small></div><div class="av"></div></div>
+            <div class="mob-card">
+              <div class="lab">Available balance</div>
+              <div class="bal">$12,480.55</div>
+              <div class="sub"><span>•••• 4821</span><span>+ $1,204 this week</span></div>
+            </div>
+            <div class="mob-seg"><span class="on">All</span><span>Income</span><span>Spending</span></div>
+            <div class="mob-list">
+              <div class="mob-tx"><span class="ic"><i data-lucide="arrow-down-left"></i></span><span class="mid"><div class="t">Stripe payout</div><div class="s">Today · 9:02</div></span><span class="amt in">+$3,200</span></div>
+              <div class="mob-tx"><span class="ic"><i data-lucide="shopping-bag"></i></span><span class="mid"><div class="t">Figma</div><div class="s">Yesterday</div></span><span class="amt">&minus;$45</span></div>
+              <div class="mob-tx"><span class="ic"><i data-lucide="coffee"></i></span><span class="mid"><div class="t">Blue Bottle</div><div class="s">Yesterday</div></span><span class="amt">&minus;$8.50</span></div>
+              <div class="mob-tx"><span class="ic"><i data-lucide="zap"></i></span><span class="mid"><div class="t">AWS</div><div class="s">Mar 14</div></span><span class="amt">&minus;$612</span></div>
+            </div>
+            <div class="mob-tab"><i data-lucide="home" class="on"></i><i data-lucide="bar-chart-2"></i><i data-lucide="wallet"></i><i data-lucide="user"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. PROOF STRIP -->
+  <section class="proof">
+    <div class="wrap">
+      <div class="logos">
+        <span class="lg">Northwind</span>
+        <span class="lg">Loomly</span>
+        <span class="lg">Cadence</span>
+        <span class="lg">Vantage</span>
+        <span class="lg">Hearth</span>
+        <span class="ph">[PLACEHOLDER client logos]</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="n"><span class="amber">40+</span> products</div><div class="d">shipped to production</div><span class="ph">[PLACEHOLDER: confirm real figures]</span></div>
+        <div class="metric"><div class="n"><span class="amber">12+</span> years</div><div class="d">senior-team experience</div><span class="ph">[PLACEHOLDER: confirm real figures]</span></div>
+        <div class="metric"><div class="n"><span class="amber">98%</span> on-time</div><div class="d">launch rate across engagements</div><span class="ph">[PLACEHOLDER: confirm real figures]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CAPABILITY STACK -->
+  <section class="band" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Services</span>
+        <h2>One senior team, from first commit to scale.</h2>
+        <p>We plug in where you need us — a fast v1, a rescue mission on an aging platform, or a long-term embedded squad.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap-card">
+          <div class="cap-ic"><i data-lucide="rocket"></i></div>
+          <h3>SaaS MVP &rarr; launch</h3>
+          <p class="out">Take an idea to a production v1 real users can pay for — scoped tight, shipped in weeks not quarters.</p>
+          <span class="arrow">Outcome: a live, revenue-ready product <i data-lucide="arrow-right"></i></span>
+          <div class="chips"><span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Postgres</span><span class="chip">Stripe</span></div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-ic"><i data-lucide="gauge"></i></div>
+          <h3>Scale &amp; modernize</h3>
+          <p class="out">Tame a slow, brittle codebase serving thousands of users — performance, reliability, and a roadmap you can build on.</p>
+          <span class="arrow">Outcome: faster, stable, maintainable <i data-lucide="arrow-right"></i></span>
+          <div class="chips"><span class="chip">React</span><span class="chip">Node</span><span class="chip">AWS</span><span class="chip">Terraform</span></div>
+        </div>
+        <div class="cap-card">
+          <div class="cap-ic"><i data-lucide="users"></i></div>
+          <h3>Embed a product team</h3>
+          <p class="out">A dedicated squad — design, engineering, PM — that works as part of your org against your roadmap, sprint after sprint.</p>
+          <span class="arrow">Outcome: durable delivery velocity <i data-lucide="arrow-right"></i></span>
+          <div class="chips"><span class="chip">Design</span><span class="chip">Frontend</span><span class="chip">Backend</span><span class="chip">DevOps</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. OUTCOME CARDS (WORK) -->
+  <section class="band" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Selected work</span>
+        <h2>Outcomes, not screenshots.</h2>
+        <p>Every engagement is measured by what changed for the business — speed, revenue, reliability, reach.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card">
+          <span class="tag">Fintech · Modernization</span>
+          <div class="res"><span class="amber">&minus;40%</span> load time</div>
+          <p class="ctx">Re-architected a six-year-old billing dashboard; first paint dropped from 4.1s to 2.4s for 12k daily users.</p>
+          <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:36%"></span><span style="height:54%"></span><span style="height:30%"></span><span class="am" style="height:70%"></span><span style="height:46%"></span><span style="height:60%"></span></div></div>
+        </div>
+        <div class="work-card">
+          <span class="tag">B2B SaaS · MVP</span>
+          <div class="res">Live in <span class="amber">9 weeks</span></div>
+          <p class="ctx">Took a workflow tool from Figma to a paying-customer v1, including auth, billing, and an admin console.</p>
+          <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:48%"></span><span style="height:32%"></span><span class="am" style="height:66%"></span><span style="height:40%"></span><span style="height:58%"></span><span style="height:36%"></span></div></div>
+        </div>
+        <div class="work-card">
+          <span class="tag">Marketplace · Scale</span>
+          <div class="res"><span class="amber">3&times;</span> throughput</div>
+          <p class="ctx">Moved a monolith to event-driven services; the platform now handles 3&times; order volume at lower infra cost.</p>
+          <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:30%"></span><span style="height:44%"></span><span style="height:38%"></span><span style="height:56%"></span><span class="am" style="height:74%"></span><span style="height:50%"></span></div></div>
+        </div>
+        <div class="work-card">
+          <span class="tag">Healthtech · Embedded team</span>
+          <div class="res"><span class="amber">99.98%</span> uptime</div>
+          <p class="ctx">An embedded squad shipped weekly for a year, lifting reliability to 99.98% across a HIPAA-compliant stack.</p>
+          <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:52%"></span><span style="height:40%"></span><span style="height:60%"></span><span class="am" style="height:72%"></span><span style="height:46%"></span><span style="height:34%"></span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. PROCESS RAIL -->
+  <section class="band" id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">How we work</span>
+        <h2>A clear path from idea to scale.</h2>
+      </div>
+      <div class="rail">
+        <div class="step"><div class="node">01</div><h4>Discovery</h4><p>We pressure-test the problem, scope, and success metrics before a line of code.</p></div>
+        <div class="step"><div class="node">02</div><h4>Design</h4><p>Flows and interfaces designed against the real product, not throwaway mockups.</p></div>
+        <div class="step"><div class="node">03</div><h4>Build</h4><p>Senior engineers ship in tight, demoable increments you can use every week.</p></div>
+        <div class="step"><div class="node">04</div><h4>Launch</h4><p>Production-hardened release — monitoring, CI/CD, and a runbook from day one.</p></div>
+        <div class="step"><div class="node">05</div><h4>Scale</h4><p>We stay on to optimize, harden, and extend as your user base grows.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ENGAGEMENT MODELS -->
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Engagement models</span>
+        <h2>Work with us the way that fits.</h2>
+        <p>Three ways to engage — each scoped to where your product is today.</p>
+      </div>
+      <div class="tier-grid">
+        <div class="tier">
+          <h3>MVP Build</h3>
+          <p class="who">For founders taking a validated idea to a production v1.</p>
+          <ul>
+            <li><i data-lucide="check"></i>Fixed-scope, fixed-timeline delivery</li>
+            <li><i data-lucide="check"></i>Design, engineering &amp; QA included</li>
+            <li><i data-lucide="check"></i>Live, revenue-ready product</li>
+          </ul>
+          <button class="btn btn-ghost">Start a build</button>
+        </div>
+        <div class="tier featured">
+          <span class="badge">Most common</span>
+          <h3>Dedicated Team</h3>
+          <p class="who">For teams that need durable velocity against an evolving roadmap.</p>
+          <ul>
+            <li><i data-lucide="check"></i>Embedded senior squad, monthly</li>
+            <li><i data-lucide="check"></i>Design + frontend + backend + PM</li>
+            <li><i data-lucide="check"></i>Works inside your tools &amp; rituals</li>
+          </ul>
+          <button class="btn btn-primary">Build a team</button>
+        </div>
+        <div class="tier">
+          <h3>Modernization Retainer</h3>
+          <p class="who">For platforms that need to get faster, stabler, and easier to extend.</p>
+          <ul>
+            <li><i data-lucide="check"></i>Performance &amp; reliability program</li>
+            <li><i data-lucide="check"></i>Incremental, zero-downtime rollout</li>
+            <li><i data-lucide="check"></i>Ongoing architecture guidance</li>
+          </ul>
+          <button class="btn btn-ghost">Scope a retainer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. TESTIMONIALS -->
+  <section class="band" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Clients</span>
+        <h2>Trusted by founders and CTOs.</h2>
+      </div>
+      <div class="quote-grid">
+        <div class="quote">
+          <div class="mark">&ldquo;</div>
+          <p>The DevAXL team shipped our v1 faster than our last in-house attempt did a prototype — and it was production-grade. <span class="ph">[PLACEHOLDER quote]</span></p>
+          <div class="by"><div class="av"></div><div><div class="nm">Maya Renner</div><div class="rl">Founder &amp; CEO, Loomly</div></div><span class="src">Upwork</span></div>
+        </div>
+        <div class="quote">
+          <div class="mark">&ldquo;</div>
+          <p>They walked into a tangled five-year-old codebase and made it fast and predictable. The DevAXL team felt like our own. <span class="ph">[PLACEHOLDER quote]</span></p>
+          <div class="by"><div class="av"></div><div><div class="nm">Daniel Osei</div><div class="rl">CTO, Cadence</div></div><span class="src">Fiverr</span></div>
+        </div>
+        <div class="quote">
+          <div class="mark">&ldquo;</div>
+          <p>An embedded squad that actually owned outcomes. The DevAXL team raised our delivery bar across the whole org. <span class="ph">[PLACEHOLDER quote]</span></p>
+          <div class="by"><div class="av"></div><div><div class="nm">Priya Shah</div><div class="rl">VP Product, Vantage</div></div><span class="src">Upwork</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FINAL CTA -->
+  <section class="final" id="contact">
+    <div class="mesh"></div>
+    <div class="wrap">
+      <h2>Ready to ship your product?</h2>
+      <p>Tell us where your product is today. We'll tell you exactly how we'd help.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary btn-lg">Book a scoping call</button>
+        <button class="btn btn-ghost btn-lg">See our work</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="../../assets/devaxl-logo.png" alt="DevAXL">
+          <p>A premium product engineering studio. We design, build, and scale SaaS products for founders and CTOs.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#about">About</a>
+        </div>
+        <div class="foot-col">
+          <h5>Services</h5>
+          <a href="#">MVP Build</a><a href="#">Dedicated Team</a><a href="#">Modernization</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <a href="mailto:hello@devaxl.com">hello@devaxl.com</a><a href="#">Book a call</a><a href="#">Careers</a>
+        </div>
+      </div>
+      <div class="foot-bot">
+        <span>© 2026 DevAXL. All rights reserved.</span>
+        <div class="socials">
+          <a href="#">X</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">GitHub</a>
+          <a href="#">Dribbble</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>lucide.createIcons({attrs:{'stroke-width':1.75}});</script>
+</body>
+</html>

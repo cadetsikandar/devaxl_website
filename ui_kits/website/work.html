@@ -1,0 +1,195 @@
+<!-- @dsCard group="Website" viewport="1280x900" name="Work Index" subtitle="Selected work — filterable grid of metric-led outcome cards" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevAXL — Selected Work</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--canvas);color:var(--text-primary);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;line-height:var(--lh-normal);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:var(--fs-caption);text-transform:uppercase;letter-spacing:var(--ls-caps);color:var(--accent);font-weight:var(--fw-semibold);}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--accent);}
+  .ph{font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:var(--text-tertiary);border:1px dashed var(--line);border-radius:var(--radius-xs);padding:2px 6px;display:inline-block;}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:46px;padding:0 22px;font-family:var(--font-sans);font-size:var(--fs-body-sm);font-weight:var(--fw-semibold);letter-spacing:-0.01em;border-radius:var(--radius-md);border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background var(--dur-fast) var(--ease-standard),border-color var(--dur-fast) var(--ease-standard),box-shadow var(--dur-fast) var(--ease-standard),transform var(--dur-fast) var(--ease-standard);}
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--accent);color:var(--text-on-accent);box-shadow:var(--shadow-xs);}
+  .btn-primary:hover{background:var(--accent-hover);box-shadow:var(--glow-accent);}
+  .btn-ghost{background:transparent;color:var(--text-primary);border-color:var(--border-default);}
+  .btn-ghost:hover{background:var(--surface-2);border-color:var(--border-strong);}
+  .btn-sm{height:38px;padding:0 16px;}
+  .btn-lg{height:52px;padding:0 28px;font-size:var(--fs-body);}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,10,12,0.72);backdrop-filter:var(--blur-glass);-webkit-backdrop-filter:var(--blur-glass);border-bottom:1px solid var(--line-faint);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .nav-logo{height:24px;width:auto;display:block;}
+  .nav-links{display:flex;gap:32px;align-items:center;}
+  .nav-links a{font-size:var(--fs-body-sm);color:var(--text-secondary);font-weight:var(--fw-medium);transition:color var(--dur-fast);}
+  .nav-links a:hover,.nav-links a.on{color:var(--text-primary);}
+
+  /* PAGE HEAD */
+  .head{padding:84px 0 44px;position:relative;overflow:hidden;}
+  .head .mesh{position:absolute;inset:0;background:radial-gradient(40% 60% at 18% 0%,rgba(255,182,0,0.10) 0%,transparent 62%);pointer-events:none;}
+  .head h1{position:relative;margin:18px 0 0;font-size:var(--fs-display);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tighter);line-height:var(--lh-tight);}
+  .head p{position:relative;margin:18px 0 0;max-width:520px;font-size:var(--fs-body-lg);color:var(--text-secondary);line-height:var(--lh-relaxed);}
+
+  /* FILTER CHIPS */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;padding:8px 0 40px;border-bottom:1px solid var(--line-faint);}
+  .fchip{height:38px;padding:0 16px;display:inline-flex;align-items:center;border-radius:var(--radius-pill);font-size:var(--fs-body-sm);font-weight:var(--fw-medium);cursor:pointer;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);transition:all var(--dur-fast) var(--ease-standard);}
+  .fchip:hover{border-color:var(--border-strong);color:var(--text-primary);}
+  .fchip.on{background:var(--accent);color:var(--text-on-accent);border-color:var(--accent);}
+
+  /* WORK GRID (metric-led, same as homepage) */
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:44px 0 0;}
+  .work-card{display:flex;flex-direction:column;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:26px 26px 0;overflow:hidden;box-shadow:var(--shadow-sm),var(--inner-top);transition:transform var(--dur-base) var(--ease-out),border-color var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out);cursor:pointer;}
+  .work-card:hover{transform:translateY(-3px);border-color:var(--border-hover);box-shadow:var(--shadow-lg),var(--inner-top);}
+  .work-card .tag{font-family:var(--font-mono);font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:0.08em;color:var(--text-tertiary);}
+  .work-card .res{margin:14px 0 0;font-size:42px;font-weight:var(--fw-semibold);letter-spacing:var(--ls-tighter);line-height:1.03;color:var(--text-primary);}
+  .work-card .res .amber{color:var(--accent);}
+  .work-card .ctx{margin:12px 0 16px;color:var(--text-secondary);font-size:var(--fs-body-sm);line-height:var(--lh-normal);}
+  .work-strip{margin:auto -26px 0;height:56px;position:relative;border-top:1px solid var(--line-faint);background:linear-gradient(180deg,var(--surface-2),var(--surface-1));overflow:hidden;}
+  .work-strip .ph{position:absolute;top:50%;left:14px;transform:translateY(-50%);z-index:2;}
+  .work-strip .strip-ui{position:absolute;right:14px;top:0;bottom:0;display:flex;align-items:flex-end;gap:5px;padding:11px 0;opacity:.5;}
+  .work-strip .strip-ui span{width:8px;border-radius:2px 2px 0 0;background:var(--surface-4);}
+  .work-strip .strip-ui span.am{background:var(--accent);}
+
+  /* CTA BAND */
+  .cta-band{position:relative;overflow:hidden;margin-top:96px;padding:104px 0;text-align:center;border-top:1px solid var(--line-faint);}
+  .cta-band .mesh{position:absolute;inset:0;background:radial-gradient(50% 130% at 50% 100%,rgba(255,182,0,0.16) 0%,transparent 64%);pointer-events:none;}
+  .cta-band h2{position:relative;margin:0 auto;font-size:var(--fs-h1);font-weight:var(--fw-semibold);letter-spacing:var(--ls-tight);max-width:620px;text-wrap:balance;}
+  .cta-band .row{position:relative;display:flex;gap:14px;justify-content:center;margin-top:32px;}
+
+  /* FOOTER */
+  footer{padding:64px 0 44px;border-top:1px solid var(--line-faint);}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;color:var(--text-tertiary);font-size:var(--fs-caption);}
+  .foot-bot img{height:22px;}
+  .foot-bot .socials{display:flex;gap:20px;}
+  .foot-bot .socials a{transition:color var(--dur-fast);}
+  .foot-bot .socials a:hover{color:var(--accent);}
+
+  @media (max-width:560px){
+    .wrap{padding:0 20px;}
+    .nav-links{display:none;}
+    .head h1{font-size:38px;}
+    .work-grid{grid-template-columns:1fr;}
+    .cta-band h2{font-size:30px;}
+    .cta-band .row{flex-direction:column;align-items:stretch;}
+    .foot-bot{flex-direction:column;gap:16px;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="wrap nav-in">
+      <a href="index.html"><img class="nav-logo" src="../../assets/devaxl-logo.png" alt="DevAXL"></a>
+      <div class="nav-links">
+        <a href="work.html" class="on">Work</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="btn btn-primary btn-sm">Book a call</button>
+    </div>
+  </nav>
+
+  <header class="head">
+    <div class="mesh"></div>
+    <div class="wrap">
+      <span class="eyebrow">Selected work</span>
+      <h1>Proof, not promises.</h1>
+      <p>A sample of products we've shipped — each measured by what changed for the business, not how the screenshot looks.</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="filters">
+      <button class="fchip on" data-filter="all">All</button>
+      <button class="fchip" data-filter="saas">SaaS MVP</button>
+      <button class="fchip" data-filter="modernization">Modernization</button>
+      <button class="fchip" data-filter="b2b">B2B</button>
+      <button class="fchip" data-filter="fintech">Fintech</button>
+      <button class="fchip" data-filter="mobile">Mobile</button>
+    </div>
+
+    <div class="work-grid" id="grid">
+      <div class="work-card" data-cat="modernization fintech">
+        <span class="tag">Fintech · Modernization</span>
+        <div class="res"><span class="amber">&minus;40%</span> load time</div>
+        <p class="ctx">Re-architected a six-year-old billing dashboard; first paint dropped from 4.1s to 2.4s for 12k daily users.</p>
+        <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:36%"></span><span style="height:54%"></span><span style="height:30%"></span><span class="am" style="height:70%"></span><span style="height:46%"></span><span style="height:60%"></span></div></div>
+      </div>
+      <div class="work-card" data-cat="saas b2b">
+        <span class="tag">B2B SaaS · MVP</span>
+        <div class="res">Live in <span class="amber">9 weeks</span></div>
+        <p class="ctx">Took a workflow tool from Figma to a paying-customer v1, including auth, billing, and an admin console.</p>
+        <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:48%"></span><span style="height:32%"></span><span class="am" style="height:66%"></span><span style="height:40%"></span><span style="height:58%"></span><span style="height:36%"></span></div></div>
+      </div>
+      <div class="work-card" data-cat="mobile">
+        <span class="tag">Healthtech · Mobile</span>
+        <div class="res"><span class="amber">4.9&#9733;</span> App Store</div>
+        <p class="ctx">Designed and shipped a patient companion app; launched to a 4.9-star rating across 18k reviews in six months.</p>
+        <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:30%"></span><span style="height:42%"></span><span style="height:56%"></span><span class="am" style="height:72%"></span><span style="height:48%"></span><span style="height:38%"></span></div></div>
+      </div>
+      <div class="work-card" data-cat="modernization">
+        <span class="tag">Marketplace · Scale</span>
+        <div class="res"><span class="amber">3&times;</span> throughput</div>
+        <p class="ctx">Moved a monolith to event-driven services; the platform now handles 3&times; order volume at lower infra cost.</p>
+        <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:34%"></span><span style="height:50%"></span><span style="height:38%"></span><span style="height:58%"></span><span class="am" style="height:76%"></span><span style="height:46%"></span></div></div>
+      </div>
+      <div class="work-card" data-cat="saas fintech">
+        <span class="tag">Fintech · MVP</span>
+        <div class="res"><span class="amber">$2.4M</span> processed</div>
+        <p class="ctx">Built a usage-based billing engine that went live in 11 weeks and now processes real revenue for a Series-A startup.</p>
+        <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:40%"></span><span style="height:30%"></span><span class="am" style="height:64%"></span><span style="height:44%"></span><span style="height:56%"></span><span style="height:34%"></span></div></div>
+      </div>
+      <div class="work-card" data-cat="b2b mobile">
+        <span class="tag">B2B SaaS · Mobile</span>
+        <div class="res"><span class="amber">60k</span> installs</div>
+        <p class="ctx">Extended a desktop SaaS to a native mobile companion; 60k installs in the first quarter with 41% weekly actives.</p>
+        <div class="work-strip"><span class="ph">[PLACEHOLDER thumbnail]</span><div class="strip-ui"><span style="height:52%"></span><span style="height:38%"></span><span style="height:60%"></span><span class="am" style="height:72%"></span><span style="height:46%"></span><span style="height:32%"></span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-band">
+    <div class="mesh"></div>
+    <div class="wrap">
+      <h2>Have a product to build or fix?</h2>
+      <div class="row">
+        <button class="btn btn-primary btn-lg">Book a scoping call</button>
+        <a class="btn btn-ghost btn-lg" href="index.html">Back to home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-bot">
+      <img src="../../assets/devaxl-logo.png" alt="DevAXL">
+      <span>© 2026 DevAXL. All rights reserved.</span>
+      <div class="socials"><a href="#">X</a><a href="#">LinkedIn</a><a href="#">GitHub</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const chips=document.querySelectorAll('.fchip');
+    const cards=document.querySelectorAll('#grid .work-card');
+    chips.forEach(c=>c.addEventListener('click',()=>{
+      chips.forEach(x=>x.classList.remove('on'));
+      c.classList.add('on');
+      const f=c.dataset.filter;
+      cards.forEach(card=>{
+        const show = f==='all' || card.dataset.cat.split(' ').includes(f);
+        card.style.display = show ? 'flex' : 'none';
+      });
+    }));
+  </script>
+</body>
+</html>

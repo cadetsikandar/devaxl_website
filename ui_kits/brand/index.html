@@ -1,0 +1,270 @@
+<!-- @dsCard group="Brand" viewport="1280x900" name="Direction Board" subtitle="The DevAXL design direction — color, type, space, components" -->
+<!-- @startingPoint section="Brand" subtitle="DevAXL dark brand direction board" viewport="1280x2400" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevAXL — Design Direction</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: var(--lh-normal);
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+  /* eyebrow */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: var(--fs-caption); text-transform: uppercase;
+    letter-spacing: var(--ls-caps); color: var(--accent);
+    font-weight: var(--fw-semibold);
+  }
+  .eyebrow::before { content:""; width: 24px; height: 1px; background: var(--accent); }
+
+  .section { padding: 88px 0; border-top: 1px solid var(--line-faint); }
+  .section-label { display:flex; align-items:baseline; justify-content:space-between; margin-bottom: 40px; }
+  .section-label h2 { margin: 0; font-size: var(--fs-h2); font-weight: var(--fw-semibold); letter-spacing: var(--ls-tight); }
+  .section-label .idx { font-family: var(--font-mono); font-size: var(--fs-caption); color: var(--text-tertiary); }
+  .lead { color: var(--text-secondary); font-size: var(--fs-body-lg); max-width: 620px; line-height: var(--lh-relaxed); }
+
+  /* HERO */
+  .hero { position: relative; overflow: hidden; padding: 140px 0 110px; }
+  .hero .mesh { position:absolute; inset:0; background: var(--hero-mesh); pointer-events:none; }
+  .hero .grid-lines {
+    position:absolute; inset:0; opacity:.5;
+    background-image: linear-gradient(var(--line-faint) 1px, transparent 1px), linear-gradient(90deg, var(--line-faint) 1px, transparent 1px);
+    background-size: 64px 64px; mask-image: radial-gradient(80% 60% at 50% 0%, #000 0%, transparent 75%);
+  }
+  .hero-inner { position: relative; }
+  .hero img.logo { height: 30px; width:auto; margin-bottom: 40px; display:block; }
+  .hero h1 {
+    margin: 22px 0 0; font-size: var(--fs-display-xl); font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-tighter); line-height: var(--lh-tight); max-width: 880px;
+    text-wrap: balance;
+  }
+  .hero h1 .amber { color: var(--accent); }
+  .hero p.sub { margin: 26px 0 0; max-width: 560px; font-size: var(--fs-body-lg); color: var(--text-secondary); line-height: var(--lh-relaxed); }
+  .cta-row { display:flex; gap: 14px; margin-top: 40px; }
+
+  /* buttons (mirrors Button.jsx) */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; height:48px; padding:0 24px;
+    font-family:var(--font-sans); font-size:var(--fs-body); font-weight:var(--fw-semibold); letter-spacing:-0.01em;
+    border-radius: var(--radius-md); border:1px solid transparent; cursor:pointer;
+    transition: background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard); }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--accent); color: var(--text-on-accent); box-shadow: var(--shadow-xs); }
+  .btn-primary:hover { background: var(--accent-hover); box-shadow: var(--glow-accent); }
+  .btn-ghost { background: transparent; color: var(--text-primary); border-color: var(--border-default); }
+  .btn-ghost:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .btn-sm { height: 34px; padding: 0 14px; font-size: var(--fs-body-sm); border-radius: var(--radius-sm); }
+  .btn-md { height: 40px; padding: 0 18px; font-size: var(--fs-body-sm); }
+
+  /* COLOR */
+  .swatch-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .swatch { height: 124px; border-radius: var(--radius-md); border:1px solid var(--border-default); box-shadow: var(--inner-top);
+    display:flex; flex-direction:column; justify-content:flex-end; padding: 14px; }
+  .swatch .nm { font-size: var(--fs-body-sm); font-weight: var(--fw-semibold); }
+  .swatch .hx { font-family: var(--font-mono); font-size: var(--fs-micro); color: var(--text-tertiary); margin-top: 3px; }
+  .amber-scale { display:flex; gap:8px; margin-top: 16px; }
+  .amber-scale .a { flex:1; height: 56px; border-radius: var(--radius-sm); display:flex; align-items:flex-end; padding:7px; font-family:var(--font-mono); font-size:10px; }
+  .ink-list { display:flex; flex-direction:column; gap: 16px; }
+  .ink-row { display:flex; align-items:baseline; gap:16px; }
+  .ink-row .t { font-size: var(--fs-h4); font-weight: var(--fw-medium); }
+  .ink-row .m { font-family: var(--font-mono); font-size: var(--fs-micro); color: var(--text-tertiary); }
+  .two-col { display:grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items:start; }
+
+  /* TYPE */
+  .type-row { display:flex; align-items:baseline; justify-content:space-between; gap:24px; padding: 20px 0; border-bottom:1px solid var(--line-faint); }
+  .type-row:last-child { border-bottom:none; }
+  .type-row .spec { font-weight: var(--fw-semibold); letter-spacing: var(--ls-tight); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .type-row .meta { font-family: var(--font-mono); font-size: var(--fs-caption); color: var(--text-tertiary); white-space:nowrap; }
+
+  /* SPACING */
+  .space-row { display:flex; align-items:flex-end; gap: 16px; }
+  .space-item { display:flex; flex-direction:column; gap:10px; }
+  .space-bar { background: var(--accent); border-radius: 2px; height: 18px; }
+  .space-item .n { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+  .radii { display:flex; gap: 18px; margin-top: 40px; }
+  .radii .r { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .radii .rbox { width: 84px; height: 84px; background: var(--surface-2); border:1px solid var(--border-default); box-shadow: var(--inner-top); }
+  .radii .n { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+
+  /* COMPONENTS / CARD */
+  .comp-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items:start; }
+  .panel { background: var(--surface-card); border:1px solid var(--border-default); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm), var(--inner-top); }
+  .panel .ph { font-size: var(--fs-micro); text-transform:uppercase; letter-spacing: var(--ls-caps); color: var(--text-tertiary); margin:0 0 18px; }
+  .btn-stack { display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  .btn-line { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+
+  /* sample project card */
+  .proj { background: var(--surface-card); border:1px solid rgba(255,182,0,0.30); border-radius: var(--radius-lg);
+    padding: 26px; box-shadow: var(--glow-accent); }
+  .proj .top { display:flex; justify-content:space-between; align-items:center; margin-bottom: 18px; }
+  .badge { display:inline-flex; align-items:center; gap:6px; height:24px; padding:0 10px; border-radius: var(--radius-pill);
+    background: var(--accent-quiet); color: var(--accent); border:1px solid rgba(255,182,0,0.30);
+    font-size: var(--fs-micro); font-weight: var(--fw-semibold); letter-spacing:0.02em; }
+  .badge .dot { width:6px; height:6px; border-radius:50%; background: var(--accent); }
+  .badge.neutral { background: var(--surface-3); color: var(--text-secondary); border-color: var(--border-default); }
+  .proj h3 { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-semibold); letter-spacing: var(--ls-tight); }
+  .proj p { margin: 10px 0 0; color: var(--text-secondary); font-size: var(--fs-body-sm); line-height: var(--lh-normal); }
+  .proj .stats { display:flex; gap: 28px; margin-top: 22px; padding-top: 20px; border-top:1px solid var(--line-faint); }
+  .proj .stat .v { font-size: var(--fs-h4); font-weight: var(--fw-semibold); }
+  .proj .stat .k { font-family: var(--font-mono); font-size: var(--fs-micro); color: var(--text-tertiary); margin-top:4px; text-transform:uppercase; letter-spacing:0.06em; }
+
+  /* FOOTER */
+  footer { padding: 60px 0 80px; border-top: 1px solid var(--line-faint); color: var(--text-tertiary); font-size: var(--fs-caption); display:flex; justify-content:space-between; align-items:center; }
+  footer .mono { font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="mesh"></div>
+    <div class="grid-lines"></div>
+    <div class="wrap hero-inner">
+      <img class="logo" src="../../assets/devaxl-logo.png" alt="DevAXL">
+      <span class="eyebrow">Design Direction · v1</span>
+      <h1>We build, launch, and scale <span class="amber">world-class</span> SaaS products.</h1>
+      <p class="sub">A premium engineering partner for founders and CTOs. The aesthetic ceiling is Stripe, Vercel, Linear — confident, understated, and built to ship.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary">Start a project</button>
+        <button class="btn btn-ghost">View our work</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- COLOR -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-label"><h2>Color system</h2><span class="idx">01 · Foundations</span></div>
+      <p class="lead" style="margin-bottom:40px;">A near-black canvas with subtly lifted surfaces. Off-white text, muted greys, and a single warm amber accent used with restraint.</p>
+      <div class="swatch-grid">
+        <div class="swatch" style="background:var(--canvas)"><span class="nm">Canvas</span><span class="hx">#0A0A0C</span></div>
+        <div class="swatch" style="background:var(--surface-1)"><span class="nm">Surface 1</span><span class="hx">#121216</span></div>
+        <div class="swatch" style="background:var(--surface-2)"><span class="nm">Surface 2</span><span class="hx">#18181E</span></div>
+        <div class="swatch" style="background:var(--surface-3)"><span class="nm">Surface 3</span><span class="hx">#202028</span></div>
+        <div class="swatch" style="background:var(--surface-4)"><span class="nm">Surface 4</span><span class="hx">#2A2A33</span></div>
+      </div>
+      <div class="two-col" style="margin-top:40px;">
+        <div>
+          <p class="ph" style="font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:var(--ls-caps);color:var(--text-tertiary);margin:0 0 16px;">Accent — amber · use sparingly</p>
+          <div class="amber-scale">
+            <div class="a" style="background:var(--amber-100);color:rgba(0,0,0,.5)">100</div>
+            <div class="a" style="background:var(--amber-200);color:rgba(0,0,0,.5)">200</div>
+            <div class="a" style="background:var(--amber-300);color:rgba(0,0,0,.55)">300</div>
+            <div class="a" style="background:var(--amber-400);color:rgba(255,255,255,.85);outline:2px solid var(--white);outline-offset:2px">400</div>
+            <div class="a" style="background:var(--amber-500);color:rgba(255,255,255,.8)">500</div>
+            <div class="a" style="background:var(--amber-600);color:rgba(255,255,255,.8)">600</div>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--fs-caption);color:var(--text-tertiary);margin-top:14px;">--accent · #FFB600 &nbsp;<span style="color:var(--text-secondary)">(DevAXL brand gold)</span></p>
+        </div>
+        <div>
+          <p class="ph" style="font-size:var(--fs-micro);text-transform:uppercase;letter-spacing:var(--ls-caps);color:var(--text-tertiary);margin:0 0 16px;">Text — ink ramp</p>
+          <div class="ink-list">
+            <div class="ink-row"><span class="t" style="color:var(--text-primary)">Primary</span><span class="m">#F4F4F1</span></div>
+            <div class="ink-row"><span class="t" style="color:var(--text-secondary)">Secondary</span><span class="m">#9A9A98</span></div>
+            <div class="ink-row"><span class="t" style="color:var(--text-tertiary)">Tertiary</span><span class="m">#6E6E6E</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-label"><h2>Typography</h2><span class="idx">02 · Foundations</span></div>
+      <p class="lead" style="margin-bottom:32px;">Geist — a clean modern grotesk. Disciplined and tight at large sizes, comfortable for body.</p>
+      <div class="type-row"><span class="spec" style="font-size:56px">Ship faster</span><span class="meta">Display · 72 / 600 / -0.03em</span></div>
+      <div class="type-row"><span class="spec" style="font-size:var(--fs-h1)">Build, launch, scale</span><span class="meta">H1 · 44 / 600</span></div>
+      <div class="type-row"><span class="spec" style="font-size:var(--fs-h2)">Build, launch, scale</span><span class="meta">H2 · 34 / 600</span></div>
+      <div class="type-row"><span class="spec" style="font-size:var(--fs-h3)">Build, launch, scale</span><span class="meta">H3 · 26 / 600</span></div>
+      <div class="type-row"><span class="spec" style="font-size:var(--fs-body-lg);font-weight:400;color:var(--text-secondary)">Body — we turn a roadmap into shipped product, with the polish of a product company.</span><span class="meta">Body · 16–18 / 1.5</span></div>
+      <div class="type-row"><span class="spec" style="font-family:var(--font-mono);font-size:var(--fs-body-sm);font-weight:400;color:var(--text-secondary)">$ devaxl deploy --prod</span><span class="meta">Mono · Geist Mono · 14</span></div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-label"><h2>Spacing &amp; radius</h2><span class="idx">03 · Foundations</span></div>
+      <p class="lead" style="margin-bottom:40px;">A 4px base grid. Generous rhythm — premium brands breathe. Radii are composed, never bubbly.</p>
+      <div class="space-row">
+        <div class="space-item"><div class="space-bar" style="width:4px"></div><span class="n">4</span></div>
+        <div class="space-item"><div class="space-bar" style="width:8px"></div><span class="n">8</span></div>
+        <div class="space-item"><div class="space-bar" style="width:12px"></div><span class="n">12</span></div>
+        <div class="space-item"><div class="space-bar" style="width:16px"></div><span class="n">16</span></div>
+        <div class="space-item"><div class="space-bar" style="width:24px"></div><span class="n">24</span></div>
+        <div class="space-item"><div class="space-bar" style="width:32px"></div><span class="n">32</span></div>
+        <div class="space-item"><div class="space-bar" style="width:48px"></div><span class="n">48</span></div>
+        <div class="space-item"><div class="space-bar" style="width:64px"></div><span class="n">64</span></div>
+        <div class="space-item"><div class="space-bar" style="width:96px"></div><span class="n">96</span></div>
+        <div class="space-item"><div class="space-bar" style="width:128px"></div><span class="n">128</span></div>
+      </div>
+      <div class="radii">
+        <div class="r"><div class="rbox" style="border-radius:var(--radius-sm)"></div><span class="n">sm·6</span></div>
+        <div class="r"><div class="rbox" style="border-radius:var(--radius-md)"></div><span class="n">md·10</span></div>
+        <div class="r"><div class="rbox" style="border-radius:var(--radius-lg)"></div><span class="n">lg·14</span></div>
+        <div class="r"><div class="rbox" style="border-radius:var(--radius-xl)"></div><span class="n">xl·20</span></div>
+        <div class="r"><div class="rbox" style="border-radius:var(--radius-2xl)"></div><span class="n">2xl·28</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-label"><h2>Components</h2><span class="idx">04 · Building blocks</span></div>
+      <div class="comp-grid">
+        <div class="panel">
+          <p class="ph">Buttons — primary amber + ghost</p>
+          <div class="btn-stack">
+            <div class="btn-line">
+              <button class="btn btn-primary">Start a project</button>
+              <button class="btn btn-ghost">View work</button>
+            </div>
+            <div class="btn-line">
+              <button class="btn btn-primary btn-md">Medium</button>
+              <button class="btn btn-ghost btn-md">Secondary</button>
+              <button class="btn btn-ghost btn-sm">Small</button>
+            </div>
+          </div>
+          <p class="ph" style="margin-top:28px;">Badges</p>
+          <div class="btn-line">
+            <span class="badge"><span class="dot"></span>Shipping</span>
+            <span class="badge neutral">SaaS</span>
+            <span class="badge neutral">Infra</span>
+          </div>
+        </div>
+        <div class="proj">
+          <div class="top">
+            <span class="badge"><span class="dot"></span>In production</span>
+            <span style="font-family:var(--font-mono);font-size:var(--fs-micro);color:var(--text-tertiary)">SAMPLE CARD</span>
+          </div>
+          <h3>Atlas — billing platform</h3>
+          <p>A usage-based billing engine launched in 11 weeks, now processing live revenue for a Series-A fintech.</p>
+          <div class="stats">
+            <div class="stat"><div class="v">11 wks</div><div class="k">to launch</div></div>
+            <div class="stat"><div class="v">99.98%</div><div class="k">uptime</div></div>
+            <div class="stat"><div class="v">$2.4M</div><div class="k">processed</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>DevAXL Design System</span>
+    <span class="mono">v1 · dark · amber</span>
+  </footer>
+
+</body>
+</html>

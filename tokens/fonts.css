@@ -1,0 +1,4 @@
+/* DevAXL webfonts — Geist (grotesk) + Geist Mono.
+   Loaded from the Google Fonts CDN; src url() targets ship to consumers.
+   NOTE: substituted from CDN — no brand font files were provided. */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap');

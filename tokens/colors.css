@@ -1,0 +1,74 @@
+/* ============================================================
+   DevAXL — Color tokens
+   Dark, high-contrast, confident. ONE accent: warm amber.
+   Base values first, semantic aliases below.
+   ============================================================ */
+:root {
+  /* --- Canvas & lifted surfaces (near-black → subtly raised) --- */
+  --black:        #050506;
+  --canvas:       #0A0A0C;  /* page background */
+  --surface-1:    #121216;  /* default card */
+  --surface-2:    #18181E;  /* raised / hover */
+  --surface-3:    #202028;  /* popovers, inputs, active */
+  --surface-4:    #2A2A33;  /* highest elevation */
+
+  /* --- Hairlines & borders (white at low alpha) --- */
+  --line-faint:   rgba(255,255,255,0.06);
+  --line-subtle:  rgba(255,255,255,0.09);
+  --line:         rgba(255,255,255,0.13);
+  --line-strong:  rgba(255,255,255,0.20);
+
+  /* --- Text (warm off-white → muted grey) --- */
+  --white:        #FAFAF8;
+  --ink-100:      #F4F4F1;  /* primary text */
+  --ink-200:      #C6C6C2;
+  --ink-300:      #9A9A98;  /* secondary text */
+  --ink-400:      #6E6E6E;  /* tertiary / captions */
+  --ink-500:      #4A4A4D;  /* disabled / faint */
+
+  /* --- Accent: bright golden amber (DevAXL brand #FFB600) --- */
+  --amber-50:     #FFF7E0;
+  --amber-100:    #FFE9A6;
+  --amber-200:    #FFD75C;
+  --amber-300:    #FFC629;
+  --amber-400:    #FFB600;  /* brand accent */
+  --amber-500:    #E0A000;  /* hover / pressed deepen */
+  --amber-600:    #B88200;
+  --amber-700:    #8A6100;
+  --amber-glow:   rgba(255,182,0,0.16); /* hero mesh / glows */
+  --amber-tint:   rgba(255,182,0,0.10); /* faint fills */
+
+  /* --- Semantic status (used sparingly) --- */
+  --green-400:    #3FB969;
+  --red-400:      #F0584F;
+  --blue-400:     #4C8DF5;
+
+  /* ============================================================
+     Semantic aliases — reference these in product code.
+     ============================================================ */
+  --bg-canvas:        var(--canvas);
+  --bg-base:          var(--black);
+  --surface-card:     var(--surface-1);
+  --surface-raised:   var(--surface-2);
+  --surface-overlay:  var(--surface-3);
+
+  --text-primary:     var(--ink-100);
+  --text-secondary:   var(--ink-300);
+  --text-tertiary:    var(--ink-400);
+  --text-disabled:    var(--ink-500);
+  --text-on-accent:   #0A0A0C;
+
+  --border-default:   var(--line-subtle);
+  --border-hover:     var(--line);
+  --border-strong:    var(--line-strong);
+
+  --accent:           var(--amber-400);
+  --accent-hover:     var(--amber-500);
+  --accent-press:     var(--amber-500);
+  --accent-quiet:     var(--amber-tint);
+  --focus-ring:       rgba(255,182,0,0.45);
+
+  --status-success:   var(--green-400);
+  --status-danger:    var(--red-400);
+  --status-info:      var(--blue-400);
+}
