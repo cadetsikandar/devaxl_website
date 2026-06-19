@@ -256,6 +256,17 @@ html:not(.reveal-ready) .rail-line-v {
   }
 }
 
+/* Testimonial marquee: one track holds the set twice and shifts -50% for a
+   seamless loop. transform only. Direction set per row; paused on hover. */
+@keyframes marqueeHalf {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marqueeHalf linear infinite;
+}
+
 /* Work-card hover "clip": a light band scans across, looping, only while the
    card is hovered (implies a looping product clip). Transform/opacity only. */
 @keyframes clipSweep {
