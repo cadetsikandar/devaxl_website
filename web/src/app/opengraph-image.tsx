@@ -43,10 +43,10 @@ export default function OpengraphImage() {
               width: 46,
               height: 46,
               borderRadius: 11,
-              background: "#FFB600",
+              background: "#18181E",
               alignItems: "center",
               justifyContent: "center",
-              color: "#0A0A0C",
+              color: "#FFB600",
               fontSize: 28,
               fontWeight: 800,
             }}
