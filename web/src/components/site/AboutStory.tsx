@@ -1,7 +1,7 @@
 const FACTS = [
-  { stat: "8+", label: "products shipped to production" },
-  { stat: "10", label: "five-star client reviews" },
-  { stat: "Top-rated", label: "on Upwork & Fiverr" },
+  { stat: "21+", label: "products shipped to production" },
+  { stat: "27", label: "five-star client reviews" },
+  { stat: "100%", label: "client satisfaction" },
   { stat: "Remote", label: "working with teams worldwide" },
 ];
 

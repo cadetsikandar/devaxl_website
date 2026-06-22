@@ -28,7 +28,7 @@ export function Proof() {
           <div data-reveal className="border-l border-[var(--line)] pl-5">
             <div className="text-[clamp(2rem,1.4rem+1.6vw,2.75rem)] font-semibold tracking-tight">
               <span className="text-accent">
-                <Counter value={8} suffix="+" />
+                <Counter value={21} suffix="+" />
               </span>{" "}
               products
             </div>
@@ -37,7 +37,7 @@ export function Proof() {
           <div data-reveal className="border-l border-[var(--line)] pl-5">
             <div className="text-[clamp(2rem,1.4rem+1.6vw,2.75rem)] font-semibold tracking-tight">
               <span className="text-accent">
-                <Counter value={10} />
+                <Counter value={27} />
               </span>{" "}
               five-star
             </div>
@@ -45,9 +45,11 @@ export function Proof() {
           </div>
           <div data-reveal className="border-l border-[var(--line)] pl-5">
             <div className="text-[clamp(2rem,1.4rem+1.6vw,2.75rem)] font-semibold tracking-tight">
-              <span className="text-accent">Top-rated</span>
+              <span className="text-accent">
+                <Counter value={100} suffix="%" />
+              </span>
             </div>
-            <div className="mt-1.5 text-[14px] text-secondary">on Upwork &amp; Fiverr</div>
+            <div className="mt-1.5 text-[14px] text-secondary">client satisfaction</div>
           </div>
         </div>
       </div>

@@ -147,7 +147,8 @@ export function Testimonials() {
     <section id="about" className="overflow-hidden border-b border-faint py-24 max-md:py-16">
       <div className="wrap">
         <SectionHead eyebrow="Clients" title="Trusted by founders and teams.">
-          Ten five-star reviews from clients on Upwork and Fiverr.
+          A few of the 27 five-star reviews clients have left us on Upwork and
+          Fiverr.
         </SectionHead>
       </div>
 
