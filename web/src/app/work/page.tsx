@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/site/PageHeader";
 import { WorkFilter } from "@/components/work/WorkFilter";
+import { Testimonials } from "@/components/site/Testimonials";
 import { FinalCta } from "@/components/site/FinalCta";
 import { getAllCases } from "@/lib/work";
 
@@ -27,6 +28,7 @@ export default function WorkPage() {
         </div>
       </section>
 
+      <Testimonials />
       <FinalCta />
     </main>
   );

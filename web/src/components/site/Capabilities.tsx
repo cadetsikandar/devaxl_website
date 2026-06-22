@@ -5,24 +5,21 @@ import { SectionHead } from "./SectionHead";
 const CARDS = [
   {
     icon: Rocket,
-    title: "SaaS MVP → launch",
-    out: "Take an idea to a production v1 real users can pay for — scoped tight, shipped in weeks not quarters.",
+    title: "SaaS & AI MVP → launch",
+    out: "Take an idea to a production v1 real users can pay for — AI features built in where they matter, scoped tight, shipped in weeks not quarters.",
     outcome: "Outcome: a live, revenue-ready product",
-    chips: ["Next.js", "TypeScript", "Postgres", "Stripe"],
   },
   {
     icon: Gauge,
     title: "Scale & modernize",
     out: "Tame a slow, brittle codebase serving thousands of users — performance, reliability, and a roadmap you can build on.",
     outcome: "Outcome: faster, stable, maintainable",
-    chips: ["React", "Node", "AWS", "Terraform"],
   },
   {
     icon: Users,
     title: "Embed a product team",
     out: "A dedicated squad — design, engineering, PM — that works as part of your org against your roadmap, sprint after sprint.",
     outcome: "Outcome: durable delivery velocity",
-    chips: ["Design", "Frontend", "Backend", "DevOps"],
   },
 ];
 
@@ -55,16 +52,6 @@ export function Capabilities() {
                 {c.outcome}
                 <ArrowRight className="size-[15px] transition-transform duration-[180ms] ease-out group-hover:translate-x-1" strokeWidth={1.75} />
               </span>
-              <div className="mt-[22px] flex flex-wrap gap-[7px] border-t border-faint pt-5">
-                {c.chips.map((chip) => (
-                  <span
-                    key={chip}
-                    className="rounded-sm border border-faint bg-surface-3 px-[9px] py-1 font-mono text-[11px] text-secondary"
-                  >
-                    {chip}
-                  </span>
-                ))}
-              </div>
             </SpotlightCard>
           ))}
         </div>

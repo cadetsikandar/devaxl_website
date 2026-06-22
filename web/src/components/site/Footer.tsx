@@ -30,8 +30,11 @@ export function Footer() {
           <div className="max-md:col-span-2">
             <Link href="/" className="inline-block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/devaxlWhiteLogo.svg" alt="DevAXL" className="mb-[18px] h-[22px] w-auto" />
+              <img src="/devaxlWhiteLogo.svg" alt="Devaxl" className="mb-3 h-[22px] w-auto" />
             </Link>
+            <p className="mb-[18px] font-mono text-[11px] uppercase tracking-caps text-tertiary">
+              Development accelerated
+            </p>
             <p className="max-w-[280px] text-[14px] leading-[1.65] text-secondary">
               A premium product engineering studio. We design, build, and scale
               SaaS products for founders and CTOs.
@@ -83,7 +86,7 @@ export function Footer() {
         </div>
 
         <div className="flex items-center justify-between pt-7 text-[13px] text-tertiary max-md:flex-col max-md:items-start max-md:gap-4">
-          <span>© 2026 DevAXL. All rights reserved.</span>
+          <span>© 2026 Devaxl. All rights reserved.</span>
           <div className="flex gap-5">
             {SOCIALS.map((s) => (
               <a

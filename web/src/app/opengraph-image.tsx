@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "DevAXL — We design, build, and scale SaaS products";
+export const alt = "Devaxl — We design, build, and scale SaaS & AI products";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 // Generated on-demand at runtime (Vercel) rather than prerendered at build —
@@ -54,7 +54,7 @@ export default function OpengraphImage() {
             X
           </div>
           <div style={{ display: "flex", color: "#9A9A98", fontSize: 24, letterSpacing: 4 }}>
-            PRODUCT ENGINEERING STUDIO
+            AI-NATIVE PRODUCT STUDIO
           </div>
         </div>
 
@@ -81,13 +81,18 @@ export default function OpengraphImage() {
               letterSpacing: -2,
             }}
           >
-            SaaS products.
+            SaaS &amp; AI products.
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", color: "#F4F4F1", fontSize: 32, fontWeight: 700 }}>
-            DevAXL
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", color: "#F4F4F1", fontSize: 32, fontWeight: 700 }}>
+              Devaxl
+            </div>
+            <div style={{ display: "flex", color: "#9A9A98", fontSize: 20, marginTop: 4 }}>
+              Development accelerated
+            </div>
           </div>
           <div style={{ display: "flex", color: "#9A9A98", fontSize: 26 }}>devaxl.com</div>
         </div>

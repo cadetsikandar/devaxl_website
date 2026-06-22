@@ -21,6 +21,10 @@ const FAQS = [
     q: "How is the team structured?",
     a: "You work with a single senior squad — design, engineering, and product — led by an accountable engagement lead. No layers of account managers, no junior hand-offs. The people on your kickoff call are the people who ship.",
   },
+  {
+    q: "How do you use AI — in the product, or in delivery?",
+    a: "Both. We build AI into the products we ship — RAG and semantic search, agents and copilots, LLM pipelines, and the evals and guardrails that keep them accurate, safe, and cost-controlled in production. And we use AI intensively across our own delivery — scoping, code and test generation, and review — so a small senior team ships like a much larger one. AI features go in only where they earn their place, never as a checkbox.",
+  },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {

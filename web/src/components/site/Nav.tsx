@@ -14,7 +14,8 @@ import { CommandMenu } from "./CommandMenu";
 type MegaItem = { label: string; desc: string; href: string };
 
 const SERVICES: MegaItem[] = [
-  { label: "SaaS MVP → launch", desc: "Idea to a production v1 in weeks.", href: "/services" },
+  { label: "SaaS & AI MVP → launch", desc: "Idea to a production v1 in weeks.", href: "/services" },
+  { label: "AI product engineering", desc: "RAG, agents & LLM features, in production.", href: "/services#ai" },
   { label: "Scale & modernize", desc: "Make a heavy platform fast and stable.", href: "/services" },
   { label: "Embed a product team", desc: "A senior squad inside your org.", href: "/services" },
 ];
@@ -53,9 +54,9 @@ export function Nav() {
   return (
     <nav className="sticky top-0 z-50 border-b border-faint bg-[rgba(10,10,12,0.72)] backdrop-blur-[16px] [backdrop-filter:var(--blur-glass)]">
       <div className="wrap flex h-[68px] items-center justify-between max-md:h-[60px]">
-        <Link href="/" aria-label="DevAXL home" className="flex items-center">
+        <Link href="/" aria-label="Devaxl home" className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/devaxlWhiteLogo.svg" alt="DevAXL" className="h-[22px] w-auto" />
+          <img src="/devaxlWhiteLogo.svg" alt="Devaxl" className="h-[22px] w-auto" />
         </Link>
 
         {/* Desktop nav */}

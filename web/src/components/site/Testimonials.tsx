@@ -9,7 +9,7 @@ type Quote = { quote: string; name: string; src: string };
 const QUOTES: Quote[] = [
   {
     quote:
-      "DevAXL combine technical expertise with professionalism, communication, timeliness, and flexibility — for React, Strapi, and Node.js your search ends here.",
+      "Devaxl combine technical expertise with professionalism, communication, timeliness, and flexibility — for React, Strapi, and Node.js your search ends here.",
     name: "Wecept",
     src: "Upwork",
   },

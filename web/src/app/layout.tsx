@@ -7,32 +7,37 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 
 const SITE_DESCRIPTION =
-  "A product-engineering studio that ships SaaS MVPs and modernizes platforms for founders and CTOs.";
-const SITE_TITLE = "DevAXL — We design, build, and scale SaaS products";
+  "An AI-native product studio that builds SaaS and AI products — from RAG, agents, and LLM features to platform modernization — for founders and CTOs.";
+const SITE_TITLE = "Devaxl — We design, build, and scale SaaS & AI products";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://devaxl.com"),
   title: {
     default: SITE_TITLE,
-    template: "%s — DevAXL",
+    template: "%s — Devaxl",
   },
   description: SITE_DESCRIPTION,
-  applicationName: "DevAXL",
+  applicationName: "Devaxl",
   keywords: [
+    "AI product studio",
+    "AI SaaS development",
     "product engineering",
     "SaaS MVP",
+    "RAG",
+    "AI agents",
+    "LLM features",
     "platform modernization",
     "software studio",
     "founders",
     "CTO",
   ],
-  authors: [{ name: "DevAXL" }],
+  authors: [{ name: "Devaxl" }],
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "DevAXL",
+    siteName: "Devaxl",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },

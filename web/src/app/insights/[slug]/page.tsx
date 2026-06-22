@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { ARTICLES, getArticleBySlug, getRelatedArticles } from "@/lib/insights";
 import { Prose } from "@/components/insights/Prose";
 import { ArticleCard } from "@/components/insights/ArticleCard";
+import { coverFor } from "@/components/insights/coverMeta";
 import { FinalCta } from "@/components/site/FinalCta";
 
 export function generateStaticParams() {
@@ -26,6 +27,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   if (!a) notFound();
 
   const related = getRelatedArticles(a.slug, 2);
+  const { icon: CoverIcon, tint } = coverFor(a.category);
 
   return (
     <main>
@@ -83,7 +85,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </div>
         </header>
 
-        {/* ---- Cover — branded gradient (intentional fallback, no media yet) ---- */}
+        {/* ---- Cover — generated, category-tinted art (no stock media) ---- */}
         <section className="border-b border-faint py-12 max-md:py-8">
           <div className="wrap">
             <div
@@ -94,15 +96,36 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 aria-hidden
                 className="absolute inset-0"
                 style={{
-                  background:
-                    "radial-gradient(50% 70% at 70% 0%, rgba(255,182,0,0.12) 0%, transparent 60%), linear-gradient(var(--line-faint) 1px, transparent 1px), linear-gradient(90deg, var(--line-faint) 1px, transparent 1px)",
-                  backgroundSize: "auto, 34px 34px, 34px 34px",
+                  background: `radial-gradient(50% 70% at 72% 0%, rgba(${tint}, 0.2) 0%, transparent 60%), radial-gradient(45% 60% at 12% 100%, rgba(${tint}, 0.08) 0%, transparent 60%), linear-gradient(var(--line-faint) 1px, transparent 1px), linear-gradient(90deg, var(--line-faint) 1px, transparent 1px)`,
+                  backgroundSize: "auto, auto, 34px 34px, 34px 34px",
                 }}
               />
-              <span
+              {/* concentric rings */}
+              <div
                 aria-hidden
-                className="relative m-6 font-mono text-[12px] uppercase tracking-[0.12em] text-tertiary"
+                className="absolute right-[8%] top-1/2 size-[420px] -translate-y-1/2 rounded-full border max-md:size-[260px]"
+                style={{ borderColor: `rgba(${tint}, 0.16)` }}
+              />
+              <div
+                aria-hidden
+                className="absolute right-[8%] top-1/2 size-[260px] -translate-y-1/2 translate-x-[80px] rounded-full border max-md:size-[170px] max-md:translate-x-[50px]"
+                style={{ borderColor: `rgba(${tint}, 0.12)` }}
+              />
+              <CoverIcon
+                aria-hidden
+                className="absolute right-[12%] top-1/2 size-[96px] -translate-y-1/2 max-md:size-[64px]"
+                style={{ color: `rgb(${tint})`, opacity: 0.85 }}
+                strokeWidth={1.25}
+              />
+              <span
+                className="relative m-6 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.12em] backdrop-blur-sm"
+                style={{
+                  color: `rgb(${tint})`,
+                  borderColor: `rgba(${tint}, 0.3)`,
+                  background: `rgba(${tint}, 0.08)`,
+                }}
               >
+                <CoverIcon className="size-[14px]" strokeWidth={2} />
                 {a.category}
               </span>
             </div>
@@ -112,7 +135,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         {/* ---- Body ---- */}
         <section className="py-16 max-md:py-12">
           <div className="wrap">
-            <Prose blocks={a.body} />
+            <Prose blocks={a.body} category={a.category} />
           </div>
         </section>
 

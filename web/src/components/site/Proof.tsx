@@ -15,7 +15,7 @@ export function Proof() {
               <img
                 key={n}
                 src={`/clients/client${n}.png`}
-                alt={`DevAXL client ${n}`}
+                alt={`Devaxl client ${n}`}
                 loading="lazy"
                 className="h-8 w-auto object-contain"
               />

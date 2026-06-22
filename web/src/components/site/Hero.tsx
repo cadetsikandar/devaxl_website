@@ -60,14 +60,15 @@ export function Hero() {
 
       <div className="wrap relative grid grid-cols-[1.02fr_0.98fr] items-center gap-12 max-lg:gap-10 max-md:grid-cols-1 max-md:gap-9">
         <div>
-          <span className="eyebrow">Product engineering studio</span>
+          <span className="eyebrow">AI-native product studio</span>
           <h1 className="t-display mt-[22px]">
             We design, build, and scale{" "}
-            <span className="text-accent">SaaS products.</span>
+            <span className="text-accent">SaaS &amp; AI products.</span>
           </h1>
-          <p className="mt-6 max-w-[520px] text-[18px] leading-[1.65] text-secondary max-md:text-[16px]">
-            Launching a v1 or modernizing a platform serving thousands of users —
-            we embed a senior product team and ship.
+          <p className="mt-6 max-w-[540px] text-[18px] leading-[1.65] text-secondary max-md:text-[16px]">
+            From AI-powered features to platforms serving thousands of users — we
+            embed a senior, AI-native product team and ship. We build AI into the
+            product, and use it across how we deliver.
           </p>
           <div className="mt-9 flex flex-wrap gap-3.5 max-md:flex-col max-md:items-stretch">
             <Link href="/work" className={cn(buttonVariants({ size: "lg" }), "max-md:w-full")}>
