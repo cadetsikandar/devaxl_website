@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/lib/work";
+import { CaseThumb } from "./CaseThumb";
 
 /**
  * Case card — leads with the real project screenshot, then name, an honest
@@ -13,15 +13,9 @@ export function CaseCard({ c }: { c: CaseStudy }) {
       href={`/work/${c.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-lg border border-subtle bg-surface-1 shadow-[var(--shadow-sm),var(--inner-top)] transition-[transform,border-color,box-shadow] duration-[180ms] ease-out hover:-translate-y-[3px] hover:border-[var(--line)] hover:shadow-[var(--shadow-lg),var(--inner-top)]"
     >
-      {/* Real screenshot leads the card */}
+      {/* Real screenshot (or branded poster) leads the card */}
       <div className="relative aspect-[16/10] overflow-hidden border-b border-faint bg-surface-2">
-        <Image
-          src={c.thumbnail}
-          alt={`${c.name} — ${c.category}`}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover object-top transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
-        />
+        <CaseThumb c={c} sizes="(max-width: 768px) 100vw, 50vw" />
       </div>
 
       <div className="flex flex-1 flex-col p-7 max-md:p-6">
