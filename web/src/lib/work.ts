@@ -82,9 +82,10 @@ export const CASES: CaseStudy[] = [
       "An all-in-one AI sales CRM for small businesses — lead generation, automation, an embeddable AI chatbot, and an AI lead-management agent in one platform.",
     overview:
       "aNinja is an all-in-one sales-CRM SaaS for small businesses, built with React and Node.js. It combines AI automation, lead generation, and streamlined multi-channel communication, with integrations to GoHighLevel, Zapier, Make.com, and n8n. On top of the core CRM we delivered two AI products — an embeddable AI website chatbot and an AI-powered lead-management agent — both powered by RAG and vector databases for context-aware, personalized engagement.",
+    thumbnail: "/projects/aninjaCrm.png",
     role: "Product Designer & Lead Developer",
     collaboration: "An all-in-one sales CRM for small businesses.",
-    link: { label: "aninja.com", href: "https://aninja.com" },
+    link: { label: "app.aninja.com", href: "https://app.aninja.com/" },
     stack: [
       "React",
       "Node.js",
@@ -125,9 +126,10 @@ export const CASES: CaseStudy[] = [
       "Backend lead on an enterprise IT-documentation SaaS — scalable systems, secure auth, and high-load API integrations.",
     overview:
       "As Backend Project Lead for ITBoost — an MSP documentation SaaS by ConnectWise — built scalable systems with Node.js, JWT, Redis, Async, and Passport, integrated with .NET services and third-party APIs under high load. Also contributed across the frontend (React, Redux, Bootstrap, Angular), with SaaS and AI automation and integrations to n8n, Make.com, Zapier, and GoHighLevel.",
+    thumbnail: "/projects/itboost.png",
     role: "Full-Stack Engineer & Backend Project Lead",
     collaboration: "An MSP documentation SaaS by ConnectWise.",
-    link: { label: "itboost.com", href: "https://itboost.com" },
+    link: { label: "itboost.com", href: "https://www.itboost.com" },
     stack: [
       "Node.js",
       "JWT",
