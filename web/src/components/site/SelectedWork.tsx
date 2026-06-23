@@ -7,7 +7,7 @@ import { getCaseBySlug, type CaseStudy } from "@/lib/work";
 // Curated homepage selection — real projects, sourced from the case data so
 // each card's content and link stay in sync with its /work/[slug] page.
 const FEATURED = (
-  ["apolloe", "authority-alert", "driver-app", "propforce"] as const
+  ["apolloe", "nrtur", "aninja-crm", "pma"] as const
 )
   .map(getCaseBySlug)
   .filter(Boolean) as CaseStudy[];

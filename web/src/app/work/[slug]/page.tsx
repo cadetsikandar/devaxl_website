@@ -85,6 +85,24 @@ export default function CasePage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
+        {/* ---- Headline metrics ---- */}
+        {c.metrics && c.metrics.length > 0 && (
+          <section className="border-b border-faint py-12 max-md:py-8">
+            <div className="wrap grid gap-7 [grid-template-columns:repeat(auto-fit,minmax(180px,1fr))] max-md:gap-6">
+              {c.metrics.map((m) => (
+                <div key={m.label} data-reveal className="border-l border-[var(--line)] pl-5">
+                  <div className="text-[clamp(2rem,1.4rem+1.6vw,2.75rem)] font-semibold tracking-tight text-accent">
+                    {m.value}
+                  </div>
+                  <div className="mt-1.5 text-[14px] leading-snug text-secondary">
+                    {m.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ---- Overview + detail ---- */}
         <section className="py-20 max-md:py-14">
           <div className="wrap grid grid-cols-[0.7fr_1.3fr] gap-12 max-lg:grid-cols-1 max-lg:gap-8">
@@ -202,6 +220,102 @@ export default function CasePage({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </section>
+
+        {/* ---- Challenge ---- */}
+        {c.challenge && (
+          <section className="border-t border-faint py-16 max-md:py-12">
+            <div className="wrap grid grid-cols-[0.7fr_1.3fr] gap-12 max-lg:grid-cols-1 max-lg:gap-6">
+              <span className="eyebrow h-fit" data-reveal>
+                The challenge
+              </span>
+              <p
+                data-reveal
+                className="max-w-[64ch] text-[clamp(1.05rem,1rem+0.4vw,1.25rem)] leading-relaxed text-secondary"
+              >
+                {c.challenge}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* ---- Approach ---- */}
+        {c.approach && c.approach.length > 0 && (
+          <section className="border-t border-faint py-16 max-md:py-12">
+            <div className="wrap">
+              <span className="eyebrow" data-reveal>
+                How we did it
+              </span>
+              <div className="mt-9 grid gap-5 md:grid-cols-3 max-md:gap-4">
+                {c.approach.map((p, i) => (
+                  <div
+                    key={p.title}
+                    data-reveal
+                    className="flex flex-col rounded-xl border border-subtle bg-surface-1 p-7 shadow-[var(--shadow-sm),var(--inner-top)] max-md:p-6"
+                  >
+                    <span className="flex size-9 items-center justify-center rounded-md border border-accent bg-surface-2 font-mono text-[12px] font-semibold text-accent">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-5 text-[17px] font-semibold tracking-[-0.01em] text-primary">
+                      {p.title}
+                    </h3>
+                    <p className="mt-3 text-[14px] leading-relaxed text-secondary">
+                      {p.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ---- Results ---- */}
+        {c.results && c.results.length > 0 && (
+          <section className="border-t border-faint py-16 max-md:py-12">
+            <div className="wrap">
+              <span className="eyebrow" data-reveal>
+                The results
+              </span>
+              <div className="mt-9 grid gap-5 md:grid-cols-2 max-md:gap-4">
+                {c.results.map((r) => (
+                  <div
+                    key={r.title}
+                    data-reveal
+                    className="flex gap-4 rounded-xl border border-subtle bg-surface-1 p-6 shadow-[var(--shadow-sm),var(--inner-top)]"
+                  >
+                    <Check className="mt-0.5 size-5 shrink-0 text-accent" strokeWidth={2} />
+                    <div>
+                      <h3 className="text-[16px] font-semibold tracking-[-0.01em] text-primary">
+                        {r.title}
+                      </h3>
+                      <p className="mt-1.5 text-[14px] leading-relaxed text-secondary">
+                        {r.body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ---- Verdict ---- */}
+        {c.verdict && (
+          <section className="border-t border-faint py-16 max-md:py-12">
+            <div className="wrap">
+              <div
+                data-reveal
+                className="rounded-xl border border-[rgba(255,182,0,0.25)] bg-accent-quiet p-9 shadow-glow max-md:p-7"
+              >
+                <h2 className="text-[11px] font-semibold uppercase tracking-caps text-accent">
+                  The verdict
+                </h2>
+                <p className="mt-3 max-w-[72ch] text-[clamp(1.1rem,1rem+0.6vw,1.4rem)] font-medium leading-relaxed tracking-[-0.01em] text-primary">
+                  {c.verdict}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ---- Next project ---- */}
         <section className="border-t border-faint py-16 max-md:py-12">
