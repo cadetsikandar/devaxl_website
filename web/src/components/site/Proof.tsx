@@ -45,11 +45,9 @@ export function Proof() {
           </div>
           <div data-reveal className="border-l border-[var(--line)] pl-5">
             <div className="text-[clamp(2rem,1.4rem+1.6vw,2.75rem)] font-semibold tracking-tight">
-              <span className="text-accent">
-                <Counter value={100} suffix="%" />
-              </span>
+              <span className="text-accent">Weeks</span> not months
             </div>
-            <div className="mt-1.5 text-[14px] text-secondary">client satisfaction</div>
+            <div className="mt-1.5 text-[14px] text-secondary">AI-native build velocity</div>
           </div>
         </div>
       </div>

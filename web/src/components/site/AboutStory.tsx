@@ -1,7 +1,7 @@
 const FACTS = [
   { stat: "21+", label: "products shipped to production" },
   { stat: "27", label: "five-star client reviews" },
-  { stat: "100%", label: "client satisfaction" },
+  { stat: "Weeks, not months", label: "AI-native build velocity" },
   { stat: "Remote", label: "working with teams worldwide" },
 ];
 
