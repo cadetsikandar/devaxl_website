@@ -107,36 +107,38 @@ Perplexity. Added:
 
 ---
 
-## Not fixed — infrastructure, needs your access
+## Deployment path — read this before expecting any fix to land
 
-### 🔴 P0 — A second indexable copy of the entire site
+**Production is served from a different repository than this one.**
 
-`https://devaxl-solutions-github-io.vercel.app` returns **200** with
-`<meta name="robots" content="index, follow">`. It is a full, crawlable copy of
-devaxl.com, deployed from the
-[devaxl-solutions/devaxl-solutions.github.io](https://github.com/devaxl-solutions/devaxl-solutions.github.io)
-repo, which is the publish target for this repo's `web/` folder.
+- This repo (`cadetsikandar/devaxl_website`) holds the design system at the root
+  and the site under `web/`.
+- [`devaxl-solutions/devaxl-solutions.github.io`](https://github.com/devaxl-solutions/devaxl-solutions.github.io)
+  holds the contents of `web/` at *its* root, and Vercel builds **that** repo
+  into `www.devaxl.com`.
+- The two histories carry identical commit messages with different SHAs — the
+  signature of `git subtree push --prefix web`.
 
-Its pages do carry canonicals pointing at devaxl.com, which is partial
-protection — Google usually honours them. But a fully crawlable duplicate of
-every page competing with the real domain is not something to leave to
-"usually". The `VERCEL_ENV` guard above does **not** cover this one: it is a
-separate Vercel project whose own production deployment is that `.vercel.app`
-URL, so it identifies as production.
+So merging a PR here changes nothing in production on its own. After merging,
+someone has to run the subtree push. Worth writing that into the repo as a
+script, because it is the kind of step that silently doesn't happen.
 
-**Pick one:**
-- Delete the duplicate Vercel project if it is a leftover, or
-- Set that project to noindex / password-protect it in Vercel's deployment
-  protection settings, or
-- Point it at the real domain so there is one project, one site.
+At the time of this audit the production CDN object was ~65 days old and the
+last commit on the production repo was 2026-06-23 — consistent with no deploy
+since then.
 
-### ⚠️ Deployment path — confirm before expecting the fixes to land
+### Correction: the `.vercel.app` URL is not a second site
 
-The other repo's README says this repo publishes its `web/` folder there via a
-subtree push. Vercel also builds this repo directly. **Confirm which project
-actually serves `www.devaxl.com`** — if it is the downstream repo, merging the
-PR here is not enough; the subtree push has to run too, or the canonical fix
-never reaches production.
+An earlier version of this audit called
+`devaxl-solutions-github-io.vercel.app` a separate indexable copy and advised
+deleting the project. **That was wrong.** It serves a byte-identical response
+with the same `ETag` as `www.devaxl.com` — it is the default `.vercel.app`
+alias of the *same* Vercel project, which every project gets.
+
+The only real (and minor) issue is that the alias is crawlable. The canonical
+tags already point at the primary domain, which is normally sufficient. If you
+want it airtight, add a redirect from the `.vercel.app` host to
+`www.devaxl.com` in `next.config.mjs` or Vercel's domain settings. Low priority.
 
 ## Not fixed — needs a decision or real content
 
