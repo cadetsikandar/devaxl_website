@@ -7,6 +7,9 @@ import { Prose } from "@/components/insights/Prose";
 import { ArticleCard } from "@/components/insights/ArticleCard";
 import { coverFor } from "@/components/insights/coverMeta";
 import { FinalCta } from "@/components/site/FinalCta";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { articleSchema, breadcrumbSchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return ARTICLES.map((a) => ({ slug: a.slug }));
@@ -19,7 +22,13 @@ export function generateMetadata({
 }): Metadata {
   const a = getArticleBySlug(params.slug);
   if (!a) return { title: "Insights" };
-  return { title: a.title, description: a.dek };
+  return pageMeta({
+    title: a.title,
+    description: a.dek,
+    path: `/insights/${a.slug}`,
+    type: "article",
+    publishedTime: a.dateISO,
+  });
 }
 
 export default function ArticlePage({ params }: { params: { slug: string } }) {
@@ -31,6 +40,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <main>
+      <JsonLd data={articleSchema(a)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Insights", path: "/insights" },
+          { name: a.title, path: `/insights/${a.slug}` },
+        ])}
+      />
       <article>
         {/* ---- Header ---- */}
         <header className="relative overflow-hidden border-b border-faint pb-12 pt-[80px] max-md:pt-12">

@@ -5,6 +5,9 @@ import "./globals.css";
 import SmoothScroll from "@/components/site/SmoothScroll";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Plausible } from "@/components/analytics/Plausible";
+import { organizationSchema } from "@/lib/schema";
 
 const SITE_DESCRIPTION =
   "An AI-native product studio that builds SaaS and AI products — from RAG, agents, and LLM features to platform modernization — for founders and CTOs.";
@@ -32,8 +35,16 @@ export const metadata: Metadata = {
     "CTO",
   ],
   authors: [{ name: "Devaxl" }],
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  creator: "Devaxl",
+  publisher: "Devaxl",
+  // No `alternates.canonical` here on purpose — metadata set on the root layout
+  // is inherited by every nested route, so a "/" canonical here would point the
+  // whole site at the homepage. Each page declares its own via `pageMeta()`.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
   openGraph: {
     type: "website",
     url: "/",
@@ -59,7 +70,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <head>
+        <JsonLd data={organizationSchema()} />
+      </head>
       <body>
+        <Plausible />
         <SmoothScroll />
         <Nav />
         {children}

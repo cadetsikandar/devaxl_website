@@ -5,6 +5,10 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { CASES, getCaseBySlug, getNextCase } from "@/lib/work";
 import { CaseThumb } from "@/components/work/CaseThumb";
 import { FinalCta } from "@/components/site/FinalCta";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageEvent } from "@/components/analytics/PageEvent";
+import { breadcrumbSchema, caseStudySchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return CASES.map((c) => ({ slug: c.slug }));
@@ -17,7 +21,12 @@ export function generateMetadata({
 }): Metadata {
   const c = getCaseBySlug(params.slug);
   if (!c) return { title: "Case study" };
-  return { title: c.name, description: `${c.name}: ${c.oneLiner}` };
+  return pageMeta({
+    title: `${c.name} case study`,
+    description: c.oneLiner,
+    path: `/work/${c.slug}`,
+    type: "article",
+  });
 }
 
 export default function CasePage({ params }: { params: { slug: string } }) {
@@ -28,6 +37,14 @@ export default function CasePage({ params }: { params: { slug: string } }) {
 
   return (
     <main>
+      <PageEvent event="case_study_viewed" eventProps={{ slug: c.slug, name: c.name }} />
+      <JsonLd data={caseStudySchema(c)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Work", path: "/work" },
+          { name: c.name, path: `/work/${c.slug}` },
+        ])}
+      />
       <article>
         {/* ---- Hero ---- */}
         <header className="relative overflow-hidden border-b border-faint pb-12 pt-[80px] max-md:pt-12">

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { referralLabel } from "@/lib/referralSources";
 
 export const runtime = "edge";
 
@@ -9,6 +10,8 @@ type Payload = {
   email?: string;
   phone?: string;
   message?: string;
+  // Self-reported attribution. Optional, and never a reason to reject a lead.
+  source?: string;
   // honeypot — real users never fill this; bots do.
   website?: string;
 };
@@ -32,6 +35,9 @@ export async function POST(req: Request) {
   const email = (body.email ?? "").trim();
   const phone = (body.phone ?? "").trim();
   const message = (body.message ?? "").trim();
+  // Resolved against the allowlist rather than trusted: an unrecognised value
+  // is dropped, never echoed into the email.
+  const source = referralLabel((body.source ?? "").trim());
 
   if (name.length < 2 || message.length < 10 || !EMAIL_RE.test(email)) {
     return NextResponse.json(
@@ -62,6 +68,7 @@ export async function POST(req: Request) {
       email,
       phone: phone || "—",
       message,
+      heard_about_us: source ?? "—",
       _to_note: RECIPIENT_NOTE,
     }),
   });

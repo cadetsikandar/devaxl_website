@@ -2,6 +2,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CALENDLY_URL } from "@/lib/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 export function FinalCta() {
   return (
@@ -33,14 +34,16 @@ export function FinalCta() {
           we&rsquo;d help.
         </p>
         <div className="mt-9 flex justify-center gap-3.5 max-md:flex-col max-md:items-stretch">
-          <a
+          <TrackedLink
+            event="cta_book_call_clicked"
+            eventProps={{ location: "final_cta" }}
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "max-md:w-full")}
           >
             Book a scoping call
-          </a>
+          </TrackedLink>
           <Link href="/work" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "max-md:w-full")}>
             See our work
           </Link>

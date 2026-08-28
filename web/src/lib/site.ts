@@ -1,6 +1,6 @@
 // Real DevAXL contact + booking details (from devaxl.com).
 
-export const CALENDLY_URL = "https://calendly.com/touqeerhassan";
+export const CALENDLY_URL = "https://calendly.com/touqeerhassan/30min";
 
 export const CONTACT = {
   email: "sales@devaxl.com",

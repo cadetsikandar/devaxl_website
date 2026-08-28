@@ -3,12 +3,17 @@ import { ArrowUpRight, CalendarClock, Mail, Phone } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { ContactForm } from "@/components/site/ContactForm";
 import { CALENDLY_URL, CONTACT } from "@/lib/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
+import { breadcrumbSchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Contact",
   description:
-    "Tell us where your product is today. Send a message, book a scoping call with a senior engineer, or email the team.",
-};
+    "Tell us where your product is today. Send a message, book a scoping call with a senior engineer, or email the team. We reply within one business day.",
+  path: "/contact",
+});
 
 const ACTIONS = [
   {
@@ -18,6 +23,8 @@ const ACTIONS = [
     href: CALENDLY_URL,
     external: true,
     featured: true,
+    event: "cta_book_call_clicked",
+    eventProps: { location: "contact_page" },
   },
   {
     icon: Mail,
@@ -26,6 +33,8 @@ const ACTIONS = [
     href: CONTACT.emailHref,
     external: false,
     featured: false,
+    event: "email_or_phone_clicked",
+    eventProps: { channel: "email", location: "contact_page" },
   },
   {
     icon: Phone,
@@ -34,12 +43,15 @@ const ACTIONS = [
     href: CONTACT.phoneHref,
     external: false,
     featured: false,
+    event: "email_or_phone_clicked",
+    eventProps: { channel: "phone", location: "contact_page" },
   },
-];
+] as const;
 
 export default function ContactPage() {
   return (
     <main>
+      <JsonLd data={breadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
       <PageHeader
         eyebrow="Contact"
         title="Tell us where your product is."
@@ -59,8 +71,10 @@ export default function ContactPage() {
           {/* Secondary: quick ways to reach us */}
           <div className="flex flex-col gap-4" data-reveal>
             {ACTIONS.map((a) => (
-              <a
+              <TrackedLink
                 key={a.label}
+                event={a.event}
+                eventProps={a.eventProps}
                 href={a.href}
                 {...(a.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className={
@@ -85,7 +99,7 @@ export default function ContactPage() {
                   </span>
                   <span className="mt-1 block text-[14px] text-secondary">{a.value}</span>
                 </span>
-              </a>
+              </TrackedLink>
             ))}
 
             <p className="mt-1 text-[14px] text-tertiary">

@@ -1,0 +1,37 @@
+# Devaxl
+
+> Devaxl is an AI-native product studio that designs, builds, and scales SaaS and AI products for founders and CTOs. We embed a single senior squad — design, engineering, and product — and ship to production in weeks, not quarters. Clients own all code, design, and infrastructure from day one.
+
+Devaxl is a services company, not a software product. Engagements start with a short scoping call, then a fixed-fee discovery that returns a written plan with scope, timeline, and team.
+
+## What Devaxl does
+
+- **SaaS & AI MVP to launch** — takes an idea to a production v1 real users can pay for. A focused MVP reaches production in roughly 8–12 weeks.
+- **AI product engineering** — RAG and semantic search, agents and copilots, LLM pipelines, plus the evals and guardrails that keep them accurate, safe, and cost-controlled in production.
+- **Scale & modernize** — performance, reliability, and incremental zero-downtime rollout for slow or brittle platforms already serving users.
+- **Embedded product team** — a dedicated senior squad working inside the client's org, tools, and rituals against their roadmap.
+
+## Engagement models
+
+- **MVP Build** — fixed-scope, fixed-timeline delivery. Design, engineering, and QA included.
+- **Dedicated Team** — embedded senior squad, billed monthly. Design, frontend, backend, and PM.
+- **Modernization Retainer** — ongoing performance and reliability program with architecture guidance.
+
+## Facts
+
+- 21+ products shipped to production.
+- 27 five-star client reviews (Upwork and Fiverr).
+- Clients own all IP, code, and infrastructure from day one; work-for-hire terms with mutual NDAs; client code is never reused across engagements.
+- Industries: fintech, B2B SaaS, health, marketplaces, AI, internal tools.
+- Remote-first, working with founders and CTOs worldwide.
+- Contact: sales@devaxl.com
+
+## Pages
+
+- [Home](https://devaxl.com/): positioning, services overview, proof, and FAQ.
+- [Services](https://devaxl.com/services): the three ways to engage, the AI-native approach, and the tech stack.
+- [Work](https://devaxl.com/work): case studies with the problem, the approach, and the outcome.
+- [Process](https://devaxl.com/process): Discovery → Design → Build → Launch → Scale, and the weekly delivery cadence.
+- [About](https://devaxl.com/about): who the team is and the principles they work by.
+- [Insights](https://devaxl.com/insights): field notes on shipping, scaling, and modernizing real products.
+- [Contact](https://devaxl.com/contact): message form, email, phone, and scoping-call booking.
