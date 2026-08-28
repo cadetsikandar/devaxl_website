@@ -3,18 +3,23 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ArticleCard } from "@/components/insights/ArticleCard";
 import { FinalCta } from "@/components/site/FinalCta";
 import { getAllArticles } from "@/lib/insights";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Insights",
   description:
-    "Field notes on shipping, scaling, and modernizing real products.",
-};
+    "Field notes on shipping, scaling, and modernizing real products — written by the senior engineers who do the work.",
+  path: "/insights",
+});
 
 export default function InsightsPage() {
   const articles = getAllArticles();
 
   return (
     <main>
+      <JsonLd data={breadcrumbSchema([{ name: "Insights", path: "/insights" }])} />
       <PageHeader
         eyebrow="Insights"
         title="Notes from the build."

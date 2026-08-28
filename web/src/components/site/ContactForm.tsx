@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowRight, CheckCircle2, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CONTACT } from "@/lib/site";
+import { track } from "@/lib/analytics";
+import { REFERRAL_SOURCES } from "@/lib/referralSources";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -17,6 +19,19 @@ const LABEL = "mb-2 block text-[12px] font-medium uppercase tracking-caps text-t
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  // Controlled only so the empty state can render in placeholder grey; a
+  // <select> has no ::placeholder to style.
+  const [source, setSource] = useState("");
+  // Fires once per mount, on the first keystroke in any field — the denominator
+  // for form abandonment. Without it you can't tell "nobody visits" from
+  // "everybody bails".
+  const startedRef = useRef(false);
+
+  function onFirstInput() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    track("contact_form_started");
+  }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,6 +46,7 @@ export function ContactForm() {
       email: String(fd.get("email") ?? ""),
       phone: String(fd.get("phone") ?? ""),
       message: String(fd.get("message") ?? ""),
+      source: String(fd.get("source") ?? ""),
       website: String(fd.get("website") ?? ""), // honeypot
     };
 
@@ -42,13 +58,23 @@ export function ContactForm() {
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
       if (res.ok && data.ok) {
+        track("contact_form_submitted", {
+          has_phone: payload.phone.length > 0,
+          // The whole point of the field — segment conversions by real source.
+          source: payload.source || "not_answered",
+        });
         setStatus("success");
         form.reset();
+        setSource("");
       } else {
+        // A form that fails silently is the most expensive bug this site can
+        // have — an unset WEB3FORMS_KEY returns a 500 and nobody would know.
+        track("contact_form_failed", { reason: `http_${res.status}` });
         setStatus("error");
         setError(data.error ?? "Something went wrong. Please try again.");
       }
     } catch {
+      track("contact_form_failed", { reason: "network" });
       setStatus("error");
       setError("Network error. Please check your connection and try again.");
     }
@@ -89,6 +115,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
+      onInput={onFirstInput}
       noValidate
       className="rounded-lg border border-subtle bg-surface-1 p-7 shadow-[var(--shadow-sm),var(--inner-top)] max-md:p-6"
     >
@@ -162,6 +189,39 @@ export function ContactForm() {
           placeholder="A sentence or two on your product, stage, and where you'd like help."
           className={FIELD + " resize-y"}
         />
+      </div>
+
+      <div className="mt-4">
+        <label htmlFor="cf-source" className={LABEL}>
+          How did you hear about us?{" "}
+          <span className="normal-case text-tertiary">(optional)</span>
+        </label>
+        <div className="relative">
+          <select
+            id="cf-source"
+            name="source"
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            className={
+              FIELD +
+              " cursor-pointer appearance-none pr-11 " +
+              // Mirrors the placeholder treatment on the text inputs.
+              (source === "" ? "text-tertiary" : "text-primary")
+            }
+          >
+            <option value="">Select one…</option>
+            {REFERRAL_SOURCES.map((s) => (
+              <option key={s.value} value={s.value} className="bg-surface-1 text-primary">
+                {s.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            aria-hidden
+            className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-tertiary"
+            strokeWidth={1.75}
+          />
+        </div>
       </div>
 
       {status === "error" && error ? (

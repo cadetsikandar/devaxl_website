@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CALENDLY_URL, CONTACT, SOCIALS } from "@/lib/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 const COLS = [
   {
@@ -62,26 +63,32 @@ export function Footer() {
             <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-caps text-tertiary">
               Contact
             </h2>
-            <a
+            <TrackedLink
+              event="email_or_phone_clicked"
+              eventProps={{ channel: "email", location: "footer" }}
               href={CONTACT.emailHref}
               className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
             >
               {CONTACT.email}
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
+              event="email_or_phone_clicked"
+              eventProps={{ channel: "phone", location: "footer" }}
               href={CONTACT.phoneHref}
               className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
             >
               {CONTACT.phone}
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
+              event="cta_book_call_clicked"
+              eventProps={{ location: "footer" }}
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mb-[11px] block text-[14px] text-secondary transition-colors duration-[120ms] hover:text-primary"
             >
               Book a call
-            </a>
+            </TrackedLink>
           </div>
         </div>
 

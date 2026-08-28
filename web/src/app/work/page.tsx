@@ -4,18 +4,23 @@ import { WorkFilter } from "@/components/work/WorkFilter";
 import { Testimonials } from "@/components/site/Testimonials";
 import { FinalCta } from "@/components/site/FinalCta";
 import { getAllCases } from "@/lib/work";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Work",
   description:
-    "Branding, design, and engineering work we've delivered for our clients.",
-};
+    "Case studies from Devaxl: SaaS platforms, AI products, and modernizations we've shipped to production — with the problem, the approach, and what changed.",
+  path: "/work",
+});
 
 export default function WorkPage() {
   const cases = getAllCases();
 
   return (
     <main>
+      <JsonLd data={breadcrumbSchema([{ name: "Work", path: "/work" }])} />
       <PageHeader
         eyebrow="Selected work"
         title="Real products we've shipped."

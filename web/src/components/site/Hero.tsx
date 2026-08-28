@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CALENDLY_URL } from "@/lib/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { HeroDotGrid } from "./HeroDotGrid";
 import { ProductShowcase } from "./ProductShowcase";
 
@@ -74,14 +75,16 @@ export function Hero() {
             <Link href="/work" className={cn(buttonVariants({ size: "lg" }), "max-md:w-full")}>
               See what we&rsquo;ve shipped
             </Link>
-            <a
+            <TrackedLink
+              event="cta_book_call_clicked"
+              eventProps={{ location: "hero" }}
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "max-md:w-full")}
             >
               Book a scoping call
-            </a>
+            </TrackedLink>
           </div>
         </div>
 

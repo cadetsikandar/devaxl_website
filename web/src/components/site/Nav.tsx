@@ -9,6 +9,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getAllCases } from "@/lib/work";
 import { CALENDLY_URL } from "@/lib/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { CommandMenu } from "./CommandMenu";
 
 type MegaItem = { label: string; desc: string; href: string };
@@ -109,14 +110,16 @@ export function Nav() {
 
         <div className="flex items-center gap-3 md:gap-4">
           <CommandMenu />
-          <a
+          <TrackedLink
+            event="cta_book_call_clicked"
+            eventProps={{ location: "nav" }}
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "sm" }), "max-md:h-10")}
           >
             Book a call
-          </a>
+          </TrackedLink>
           <button
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}

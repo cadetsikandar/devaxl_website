@@ -7,16 +7,21 @@ import { Engagement } from "@/components/site/Engagement";
 import { Process } from "@/components/site/Process";
 import { Faq } from "@/components/site/Faq";
 import { FinalCta } from "@/components/site/FinalCta";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Services",
   description:
     "How we help you ship: SaaS and AI products, modernization, and embedded product teams. AI built into the product and the process — one senior team, from first commit to scale.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
     <main>
+      <JsonLd data={breadcrumbSchema([{ name: "Services", path: "/services" }])} />
       <PageHeader
         eyebrow="Services"
         title="How we help you ship."

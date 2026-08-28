@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CALENDLY_URL } from "@/lib/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { SectionHead } from "./SectionHead";
 
@@ -79,7 +80,11 @@ export function Engagement() {
                   </li>
                 ))}
               </ul>
-              <a
+              <TrackedLink
+                event="cta_book_call_clicked"
+                // Which engagement model people book against — the single most
+                // useful thing this event can tell you.
+                eventProps={{ location: "engagement", tier: t.name }}
                 href={CALENDLY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -89,7 +94,7 @@ export function Engagement() {
                 )}
               >
                 {t.cta}
-              </a>
+              </TrackedLink>
             </SpotlightCard>
           ))}
         </div>
