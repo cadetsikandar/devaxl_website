@@ -28,10 +28,10 @@ Devaxl is a services company, not a software product. Engagements start with a s
 
 ## Pages
 
-- [Home](https://devaxl.com/): positioning, services overview, proof, and FAQ.
-- [Services](https://devaxl.com/services): the three ways to engage, the AI-native approach, and the tech stack.
-- [Work](https://devaxl.com/work): case studies with the problem, the approach, and the outcome.
-- [Process](https://devaxl.com/process): Discovery → Design → Build → Launch → Scale, and the weekly delivery cadence.
-- [About](https://devaxl.com/about): who the team is and the principles they work by.
-- [Insights](https://devaxl.com/insights): field notes on shipping, scaling, and modernizing real products.
-- [Contact](https://devaxl.com/contact): message form, email, phone, and scoping-call booking.
+- [Home](https://www.devaxl.com/): positioning, services overview, proof, and FAQ.
+- [Services](https://www.devaxl.com/services): the three ways to engage, the AI-native approach, and the tech stack.
+- [Work](https://www.devaxl.com/work): case studies with the problem, the approach, and the outcome.
+- [Process](https://www.devaxl.com/process): Discovery → Design → Build → Launch → Scale, and the weekly delivery cadence.
+- [About](https://www.devaxl.com/about): who the team is and the principles they work by.
+- [Insights](https://www.devaxl.com/insights): field notes on shipping, scaling, and modernizing real products.
+- [Contact](https://www.devaxl.com/contact): message form, email, phone, and scoping-call booking.

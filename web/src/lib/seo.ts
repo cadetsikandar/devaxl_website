@@ -7,7 +7,11 @@
 
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://devaxl.com";
+// The www host is the one that actually serves 200 — bare devaxl.com issues a
+// 308 to it. Canonicals, sitemap URLs, and the robots Host must name the URL
+// that resolves, not one that redirects. If you'd rather run on the bare
+// domain, flip the redirect in Vercel first, then change this one constant.
+export const SITE_URL = "https://www.devaxl.com";
 export const SITE_NAME = "Devaxl";
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;

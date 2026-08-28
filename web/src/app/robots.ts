@@ -1,8 +1,16 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/seo";
 
-const BASE = "https://devaxl.com";
+const BASE = SITE_URL;
 
 export default function robots(): MetadataRoute.Robots {
+  // Preview and branch deployments are publicly reachable and were being
+  // crawled as a second copy of the site. Only the production deployment
+  // should invite crawlers.
+  if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production") {
+    return { rules: { userAgent: "*", disallow: "/" } };
+  }
+
   return {
     rules: [
       { userAgent: "*", allow: "/" },

@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 import { CASES } from "@/lib/work";
 import { ARTICLES } from "@/lib/insights";
+import { SITE_URL } from "@/lib/seo";
 
-const BASE = "https://devaxl.com";
+// Single source of truth — a sitemap listing a host that redirects wastes
+// crawl budget and conflicts with the canonicals.
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

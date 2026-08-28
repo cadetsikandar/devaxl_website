@@ -8,13 +8,14 @@ import { Footer } from "@/components/site/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Plausible } from "@/components/analytics/Plausible";
 import { organizationSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/seo";
 
 const SITE_DESCRIPTION =
   "An AI-native product studio that builds SaaS and AI products — from RAG, agents, and LLM features to platform modernization — for founders and CTOs.";
 const SITE_TITLE = "Devaxl — We design, build, and scale SaaS & AI products";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://devaxl.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
     template: "%s — Devaxl",

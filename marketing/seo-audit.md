@@ -53,6 +53,36 @@ Two deliberate omissions:
   verifiable postal address. Devaxl is remote-first. If a registered business
   address is ever published, upgrading is a two-line change.
 
+### 🔴 P0 — Canonicals named a host that redirects
+
+Found by inspecting the live site rather than the code.
+
+- `https://www.devaxl.com` serves **200** — it is the real site.
+- `https://devaxl.com` returns a **308** redirect to the www host.
+- Yet every canonical, the `robots.txt` `Host:` directive, and **every URL in
+  the sitemap** named the bare `devaxl.com` domain.
+
+So the site was telling Google "the canonical version of this page lives at a
+URL that immediately redirects somewhere else." Canonicals must name the URL
+that actually resolves. A sitemap full of redirecting URLs also wastes crawl
+budget on a small site that has little to spare.
+
+**Fixed:** `SITE_URL` in `web/src/lib/seo.ts` is now `https://www.devaxl.com`,
+and `sitemap.ts`, `robots.ts`, `layout.tsx` (`metadataBase`) and `llms.txt` all
+derive from it rather than hardcoding a second copy.
+
+If you would rather run on the bare domain, that is a legitimate choice — but
+flip the redirect in Vercel **first**, then change that one constant. Don't do
+it the other way around.
+
+### 🟠 P1 — Preview deployments were indexable
+
+Every Vercel preview and branch deployment served `robots.txt` with
+`Allow: /`, making each one a crawlable duplicate of the whole site.
+
+**Fixed:** `robots.ts` now returns `Disallow: /` whenever `VERCEL_ENV` is set
+to anything other than `production`.
+
 ### 🟠 P1 — Open Graph inherited site-wide
 
 Same inheritance trap: the root layout's `openGraph` block was the only one, so
@@ -76,6 +106,37 @@ Perplexity. Added:
   what makes rich image previews and long snippets eligible.
 
 ---
+
+## Not fixed — infrastructure, needs your access
+
+### 🔴 P0 — A second indexable copy of the entire site
+
+`https://devaxl-solutions-github-io.vercel.app` returns **200** with
+`<meta name="robots" content="index, follow">`. It is a full, crawlable copy of
+devaxl.com, deployed from the
+[devaxl-solutions/devaxl-solutions.github.io](https://github.com/devaxl-solutions/devaxl-solutions.github.io)
+repo, which is the publish target for this repo's `web/` folder.
+
+Its pages do carry canonicals pointing at devaxl.com, which is partial
+protection — Google usually honours them. But a fully crawlable duplicate of
+every page competing with the real domain is not something to leave to
+"usually". The `VERCEL_ENV` guard above does **not** cover this one: it is a
+separate Vercel project whose own production deployment is that `.vercel.app`
+URL, so it identifies as production.
+
+**Pick one:**
+- Delete the duplicate Vercel project if it is a leftover, or
+- Set that project to noindex / password-protect it in Vercel's deployment
+  protection settings, or
+- Point it at the real domain so there is one project, one site.
+
+### ⚠️ Deployment path — confirm before expecting the fixes to land
+
+The other repo's README says this repo publishes its `web/` folder there via a
+subtree push. Vercel also builds this repo directly. **Confirm which project
+actually serves `www.devaxl.com`** — if it is the downstream repo, merging the
+PR here is not enough; the subtree push has to run too, or the canonical fix
+never reaches production.
 
 ## Not fixed — needs a decision or real content
 
